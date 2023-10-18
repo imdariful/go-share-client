@@ -26,16 +26,13 @@ export class SingupPageComponent {
     if (this.registrationForm.valid) {
       const userData = this.registrationForm.value;
       const res = await this.auth.singUp(userData)
-      console.log(res);
-      // if(!res.token){
-        // console.log(res.message);
-        // this.error = res.message;
-      // }
-      // else{
-        // console.log(res);
+      if(!res.token){
+        this.error = res.message;
+      }
+      else{
         this.registrationForm.reset();
-        this.router.navigate(['/login']);
-      // }
+        this.router.navigate(['/profile']);
+      }
       
     }
   }

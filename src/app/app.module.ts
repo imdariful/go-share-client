@@ -6,14 +6,16 @@ import { AppComponent } from './app.component';
 import { CloudSvgComponent } from './cloud-svg/cloud-svg.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { SingupPageComponent } from './pages/singup-page/singup-page.component';
-import { ReactiveFormsModule } from '@angular/forms'; 
+import { ReactiveFormsModule } from '@angular/forms';
+import { ProfileComponent } from './pages/profile/profile.component'; 
 
 @NgModule({
   declarations: [
     AppComponent,
     CloudSvgComponent,
     LoginPageComponent,
-    SingupPageComponent
+    SingupPageComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
