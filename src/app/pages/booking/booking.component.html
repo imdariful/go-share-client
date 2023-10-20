@@ -1,0 +1,39 @@
+
+
+<div class="booking__main">
+
+  <ol
+    class="flex items-center w-full	mx-auto font-medium text-center text-gray-600 sm:text-base">
+    <li
+      [routerLink]="'/booking/1'"
+      [ngClass]="{ 'text-green-600': id >= 1 }"
+      class="text-3xl flex md:w-full cursor-pointer items-center after:w-full after:h-1 after:bg-gray-500 after:max-w-sm sm:after:inline-block after:mx-auto">
+       <app-skipper-icon [id]="id" [index]="1" [title]="'Location & Time'"></app-skipper-icon>
+    </li>
+    <li
+      [routerLink]="'/booking/2'"
+      [ngClass]="{ 'text-green-600': id >= 2 }"
+      class="text-3xl flex md:w-full cursor-pointer items-center after:w-full after:h-1 after:bg-gray-500 after:max-w-sm sm:after:inline-block after:mx-auto">
+      <app-skipper-icon [id]="id" [index]="2" [title]="'Cargo & Vehicle'"></app-skipper-icon>
+    </li>
+    <li 
+    [routerLink]="'/booking/3'"
+    [ngClass]="{ 'text-green-600': id >= 3 }"
+    class="text-3xl flex cursor-pointer items-center">
+      <app-skipper-icon [id]="id" [index]="3" [title]="'Review'"></app-skipper-icon>
+    </li>
+  </ol>
+
+  <div
+  class="block mt-10 w-full max-w-4xl mx-auto rounded-lg bg-white text-left shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
+  <div class="p-10">
+    <app-booking-location *ngIf="id === 1"></app-booking-location>
+  <app-booking-cargo *ngIf="id === 2"></app-booking-cargo>
+  <app-booking-review *ngIf="id === 3"></app-booking-review>
+  </div>
+</div>
+
+  
+
+
+</div>
