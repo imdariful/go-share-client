@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { CargoAndVehicle ,Location } from 'src/app/interfaces/location';
 
 @Component({
   selector: 'app-booking-review',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./booking-review.component.scss']
 })
 export class BookingReviewComponent {
-
+ @Input()  location: Location | undefined;
+ @Input()  cargoAndVehicle: CargoAndVehicle | undefined;
 }

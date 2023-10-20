@@ -1,1 +1,10 @@
-<p>booking-review works!</p>
+
+<h1>Review</h1>
+
+<div *ngIf="location && cargoAndVehicle">
+    <h1>{{location.load_location}} from {{location.unload_location}}</h1>
+    <h3>Time to pick up {{location.date}} at {{location.time}}</h3>
+    <h5>{{cargoAndVehicle.vehicle}}</h5>
+    <p *ngFor="let cargo of cargoAndVehicle.cargo">{{cargo}}</p>
+    <p *ngIf="cargoAndVehicle.description">{{cargoAndVehicle.description}}</p>
+</div>
