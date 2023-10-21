@@ -16,6 +16,13 @@ import { BookingReviewComponent } from './components/booking-review/booking-revi
 // import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from './pages/home/home.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+// import { DefultComponent } from './layouts/defult/defult.component';
+import { DefultLayoutComponent } from './layouts/defult-layout/defult-layout.component';
+import { BannerComponent } from './components/banner/banner.component';
+import { DeliveryPromotionComponent } from './pages/home/delivery-promotion/delivery-promotion.component';
+import { HomeCardComponent } from './pages/home/home-card/home-card.component';
 // import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 
 
@@ -31,6 +38,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BookingCargoComponent,
     SkipperIconComponent,
     BookingReviewComponent,
+    HomeComponent,
+    NavbarComponent,
+    // DefultComponent,
+    DefultLayoutComponent,
+    BannerComponent,
+    DeliveryPromotionComponent,
+    HomeCardComponent,
   ],
   imports: [
     BrowserModule,

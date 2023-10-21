@@ -1,0 +1,36 @@
+.app_banner{
+    background: linear-gradient(90deg,#2195f3, #2f78b4ad, #386ca800), url("/assets/images/banner.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+
+    div{
+        width: 100%;
+
+        h1{
+            font-size: 3rem;
+            max-width: 460px;
+            line-height: 1.2;
+        }
+
+        p{
+            font-size: 1.4rem;
+            margin: 20px 0;
+            max-width: 460px;
+        }
+
+        button{
+            font-size: 1.8rem;
+            padding: 20px 40px;
+            min-width: 300px;
+        }
+    }
+
+   
+}
+
