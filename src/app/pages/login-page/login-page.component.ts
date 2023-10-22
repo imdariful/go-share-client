@@ -21,18 +21,15 @@ export class LoginPageComponent {
   }
 
   async getUserData() {
-    if (this.registrationForm.valid) {
-      
-      const userData = this.registrationForm.value;
-      const res = await this.auth.singIn(userData)
-      if(!res.token){
-        this.error = res.message;
-      }
-      else{
+    try {
+      if (this.registrationForm.valid) {
+        const userData = this.registrationForm.value;
+        const res = await this.auth.signIn(userData)
         this.registrationForm.reset();
         this.router.navigate(['/profile']);
       }
-      
+    } catch (error: any) {
+      this.error = error.message;
     }
   }
 }

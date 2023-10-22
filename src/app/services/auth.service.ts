@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import axios from 'axios';
+import { CookieService } from 'ngx-cookie';
+import { Auth, Profile } from '../interfaces/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -8,49 +11,37 @@ export class AuthService {
 
   url = 'http://localhost:3001/auth/'
   token: string | undefined;
+  config = { withCredentials: true }
 
-  constructor() { }
+  constructor(private cookieService: CookieService, private router: Router) { }
 
-  singUp = async (userData: any): Promise<any> => {
+  signUp = async (userData: any): Promise<Auth> => {
     try {
-      const res = await axios.post(`${this.url}singup`, userData);
-      localStorage.setItem("token", res.data.token);
+      const res = await axios.post(`${this.url}signup`, userData, this.config);
       return res.data;
     } catch (error: any) {
       return error;
     }
   }
 
-  singIn = async (userData: any): Promise<any> => {
+  signIn = async (userData: any): Promise<Auth> => {
     try {
-      const res = await axios.post(`${this.url}singin`, userData);
-      localStorage.setItem("token", res.data.token);
+      const res = await axios.post(`${this.url}signin`, userData, this.config);
       return res.data;
     } catch (error: any) {
       return error;
     }
   }
 
-  singOut = async (): Promise<any> => {
-    try {
-      localStorage.removeItem("token");
-    } catch (error: any) {
-      return error;
-    }
+  signOut = (): void => {
+    this.cookieService.remove("token");
+    this.router.navigate(['/']);
   }
 
-  profile = async (): Promise<any> => {
+  profile = async (): Promise<Profile> => {
     try {
-      const token = localStorage.getItem("token");
-      if (token) {
-        const config = {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        };
-        const res = await axios.get(`${this.url}profile`, config);
-        return res.data;
-      }
+      const res = await axios.get(`${this.url}profile`, this.config);
+      return res.data;
     } catch (error: any) {
       return error;
     }

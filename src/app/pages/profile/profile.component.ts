@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 
@@ -17,14 +16,13 @@ export class ProfileComponent implements OnInit {
 
   user: User | undefined;
 
-  constructor( private auth: AuthService, private router: Router) {}
+  constructor( private auth: AuthService) {}
   ngOnInit(): void {
     this.getUserData()
   }
 
   logout() {
-    this.auth.singOut();
-    this.router.navigate(['/']);
+    this.auth.signOut();
   }
 
   async getUserData() {

@@ -23,17 +23,15 @@ export class SingupPageComponent {
   }
 
   async getUserData() {
-    if (this.registrationForm.valid) {
-      const userData = this.registrationForm.value;
-      const res = await this.auth.singUp(userData)
-      if(!res.token){
-        this.error = res.message;
-      }
-      else{
+    try {
+      if (this.registrationForm.valid) {
+        const userData = this.registrationForm.value;
+        const res = await this.auth.signUp(userData)
         this.registrationForm.reset();
         this.router.navigate(['/profile']);
       }
-      
+    } catch (error: any) {
+      this.error = error.message
     }
   }
 

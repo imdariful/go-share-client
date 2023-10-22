@@ -1,29 +1,25 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CloudSvgComponent } from './cloud-svg/cloud-svg.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { SingupPageComponent } from './pages/singup-page/singup-page.component';
-// import { ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { BookingComponent } from './pages/booking/booking.component';
 import { BookingLocationComponent } from './components/booking-location/booking-location.component';
 import { BookingCargoComponent } from './components/booking-cargo/booking-cargo.component';
 import { SkipperIconComponent } from './utlt/skipper-icon/skipper-icon.component';
 import { BookingReviewComponent } from './components/booking-review/booking-review.component';
-// import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './pages/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-// import { DefultComponent } from './layouts/defult/defult.component';
 import { DefultLayoutComponent } from './layouts/defult-layout/defult-layout.component';
 import { BannerComponent } from './components/banner/banner.component';
 import { DeliveryPromotionComponent } from './pages/home/delivery-promotion/delivery-promotion.component';
 import { HomeCardComponent } from './pages/home/home-card/home-card.component';
-// import { TimepickerModule } from 'ngx-bootstrap/timepicker';
+import { CookieModule } from 'ngx-cookie';
 
 
 @NgModule({
@@ -40,7 +36,6 @@ import { HomeCardComponent } from './pages/home/home-card/home-card.component';
     BookingReviewComponent,
     HomeComponent,
     NavbarComponent,
-    // DefultComponent,
     DefultLayoutComponent,
     BannerComponent,
     DeliveryPromotionComponent,
@@ -51,9 +46,8 @@ import { HomeCardComponent } from './pages/home/home-card/home-card.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    // BsDatepickerModule.forRoot(),
     BrowserAnimationsModule,
-    // TimepickerModule.forRoot()
+    CookieModule.withOptions()
   ],
   providers: [],
   bootstrap: [AppComponent]
