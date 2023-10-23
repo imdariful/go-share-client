@@ -20,6 +20,8 @@ import { BannerComponent } from './components/banner/banner.component';
 import { DeliveryPromotionComponent } from './pages/home/delivery-promotion/delivery-promotion.component';
 import { HomeCardComponent } from './pages/home/home-card/home-card.component';
 import { CookieModule } from 'ngx-cookie';
+import { LoadLocationComponent } from './components/load-location/load-location.component';
+import { UnloadLocationComponent } from './components/unload-location/unload-location.component';
 
 
 @NgModule({
@@ -40,6 +42,8 @@ import { CookieModule } from 'ngx-cookie';
     BannerComponent,
     DeliveryPromotionComponent,
     HomeCardComponent,
+    LoadLocationComponent,
+    UnloadLocationComponent,
   ],
   imports: [
     BrowserModule,

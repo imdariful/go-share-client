@@ -1,6 +1,6 @@
 
 
-<div class="booking__main">
+<div class="booking__main max-w-screen-2xl mx-auto mt-10">
 
   <ol
     class="flex items-center w-full	mx-auto font-medium text-center text-gray-600 sm:text-base">
@@ -25,7 +25,7 @@
   </ol>
 
   <div
-  class="block mt-10 w-full max-w-4xl mx-auto rounded-lg bg-white text-left shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
+  class="block mt-10 w-full max-w-screen-2xl mx-auto rounded-lg bg-white text-left shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
   <div class="p-10">
     <app-booking-location (setLocation)="setLocation($event)" *ngIf="id === 1"></app-booking-location>
   <app-booking-cargo (setCargo)="setCargo($event)" *ngIf="id === 2"></app-booking-cargo>
