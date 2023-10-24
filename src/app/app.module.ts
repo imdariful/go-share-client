@@ -22,6 +22,7 @@ import { HomeCardComponent } from './pages/home/home-card/home-card.component';
 import { CookieModule } from 'ngx-cookie';
 import { LoadLocationComponent } from './components/load-location/load-location.component';
 import { UnloadLocationComponent } from './components/unload-location/unload-location.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { UnloadLocationComponent } from './components/unload-location/unload-loc
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    CookieModule.withOptions()
+    CookieModule.withOptions(),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

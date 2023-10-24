@@ -1,5 +1,18 @@
-<div class="load_location">
-    <div id="map2"></div>
+<!-- <div> -->
+<div *ngIf="focus == 'start'">
+    <div>start map </div>
+
 </div>
+<div *ngIf="focus == 'end'">
+    <div>End map </div>
 
+</div>
+<!-- </div> -->
 
+<div class="load_location">
+    <!-- <div *ngIf="focus == 'none'">
+            <h3>click to the input for map</h3>
+        </div> -->
+    <div [ngClass]="{hide: focus == 'end'}" id="start"></div>
+    <div [ngClass]="{hide: focus == 'start'}" id="end"></div>
+</div>

@@ -1,49 +1,99 @@
 
-<div class>
-    <form [formGroup]="registrationForm" (ngSubmit)="getLocation_Time()">
+<!-- <app-test-map-input></app-test-map-input> -->
+
+<!-- [formGroup]="registrationForm" (ngSubmit)="getLocation_Time()" -->
+<!-- class=" border-t-8	 mt-20 pt-12" -->
+<div>
+    <form (ngSubmit)="onSubmit()">
         <div class="grid grid-cols-2 gap-8">
             <div>
-                <div class="relative z-0 w-full mb-6 group">
-                    <input  type="text" formControlName="load_location"
+                <div class="relative alskfdl0 w-full mb-6 group">
+
+                    <input
+                        (focus)="onFucusChange('start')"
+                        [(ngModel)]="startLocation"
+                        (input)="searchStartLocations()"
+                        #load_location="ngModel"
+                        type="text"
+                        name="load_location"
                         id="load_location"
-                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        class="block alskfdl1 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" " required />
                     <label for="load_location"
-                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Load
+                        class="alskfdl1 peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -alskfdl10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Load
                         Location</label>
+                    <div style="z-index: 99;"
+                        class=" mt-4 absolute top-8 alskfdl10  w-[100%] bg-[#ededed] rounded-xl border-2 border-mblue"
+                        *ngIf="onStartHide && locationsuggestions">
+                        <div class="hover:bg-white rounded-xl"
+                            *ngFor="let start of locationsuggestions">
+                            <div class="cursor-pointer ml-4"
+                                (click)="setStartLocation(start)">
+                                <div class="flex items-center">
+                                    <img class="w-[35px] h-[40px]"
+                                        src="assets/images/map.png" alt>
+                                    <h1 class="py-4 ml-2 text-mblue">{{
+                                        start.placeName }}</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="relative z-0 w-full mb-6 group">
-                    <input type="text" formControlName="unload_location"
+
+                <div class="relative alskfdl1 w-full mb-6 group">
+                    <input
+                        (focus)="onFucusChange('end')"
+                        [(ngModel)]="endLocation"
+                        (input)="searchEndLocation()"
+                        type="text"
+                        name="unload_location"
                         id="unload_location"
-                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        class="block alskfdl1 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" " required />
                     <label for="unload_location"
-                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Unload
+                        class="peer-focus:font-medium alskfdl1 absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -alskfdl10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Unload
                         Location</label>
+                    <div style="z-index: 99;"
+                        class=" mt-4 absolute top-8 alskfdl10  w-[100%] bg-[#ededed] rounded-xl border-2 border-mblue"
+                        *ngIf="onEndHide && locationsuggestions">
+                        <div class="hover:bg-white rounded-xl"
+                            *ngFor="let end of locationsuggestions">
+                            <div class="cursor-pointer ml-4"
+                                (click)="setEndLocation(end)">
+                                <div class="flex items-center">
+                                    <img class="w-[35px] h-[35px]"
+                                        src="assets/images/map.png" alt>
+                                    <h1 class="py-4 ml-2 text-mblue">{{
+                                        end.placeName }}</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="grid md:grid-cols-2 md:gap-6">
-                    <div class="relative z-0 w-full mb-6 group">
-                        <input type="date" formControlName="date" id="date"
+                <div class="grid  md:grid-cols-2 md:gap-6">
+                    <div class="relative alskfdl0 w-full mb-6 group">
+                        <input type="date" [(ngModel)]="date" name="date"
+                            id="date"
                             class=" block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" " required />
                         <label for="date"
-                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pickup
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -alskfdl10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pickup
                             Date</label>
                     </div>
-                    <div class="relative z-0 w-full mb-6 group">
-                        <input type="time" [min]="minTime"
-                            formControlName="time" id="time"
+                    <div class="relative alskfdl0 w-full mb-6 group">
+                        <input type="time" [(ngModel)]="time" [min]="minTime"
+                            name="time" id="time"
                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" " required />
                         <!-- <timepicker [arrowkeys]="false" [min]="minTime"></timepicker> -->
                         <label for="time"
-                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pickup
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -alskfdl10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pickup
                             Time</label>
                     </div>
                 </div>
             </div>
             <div>
-                <app-load-location></app-load-location>
+                <app-load-location [focus]="focus"></app-load-location>
             </div>
         </div>
         <button type="submit"

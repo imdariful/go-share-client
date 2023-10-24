@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { AfterViewInit, Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
+import { LocationService } from 'src/app/services/location.service';
 import { MapService } from 'src/app/services/map.service';
 
 @Component({
@@ -7,34 +9,55 @@ import { MapService } from 'src/app/services/map.service';
   templateUrl: './load-location.component.html',
   styleUrls: ['./load-location.component.scss']
 })
-export class LoadLocationComponent implements OnInit {
+export class LoadLocationComponent implements AfterViewInit, OnChanges {
 
   map: mapboxgl.Map | undefined;
   currentMarker: mapboxgl.Marker | null = null;
+  @Input() focus: string = 'start';
 
-  constructor(private mapService: MapService) {
+
+  constructor(private locationService: LocationService, private http: HttpClient) {
     (mapboxgl as any).accessToken = 'pk.eyJ1IjoiYXNpZnVycmFobWFucGlhbCIsImEiOiJjbG5qd29ldTEwMjdsMnBsazFsaW1xcm5rIn0.L5kKxav_0VTewsxlvWUS2g';
-   }
-
-  ngOnInit() {
-    this.initializeMap()
   }
 
-  initializeMap() {
+
+  ngOnChanges(changes: any) {
+    if (changes.focus) {
+      this.initializeMap(this.focus);
+    }
+  }
+
+  ngAfterViewInit() {
+    this.initializeMap(this.focus);
+  }
+
+
+  initializeMap(containerId: string) {
     this.map = new mapboxgl.Map({
-      container: 'map2',
+      container: containerId,
       style: 'mapbox://styles/mapbox/streets-v11',
       center: [90.42488, 23.76495],
-      zoom: 12,
+      zoom: 13,
     });
 
+    if (this.focus === 'start') {
+      this.locationService.getStartLocation().subscribe((data: any) => {
+        this.addMarker(data.coordinates);
+        (this.map as any).setCenter(data.coordinates);
+      });
+    } else {
+      this.locationService.getEndLocation().subscribe((data: any) => {
+        this.addMarker(data.coordinates);
+        (this.map as any).setCenter(data.coordinates);
+      })
+    }
 
     this.map.on('click', (e) => {
       const coordinates = e.lngLat;
-      console.log(coordinates);
       this.addMarker(coordinates);
-      this.getAddress(coordinates);
+      this.setLocation(coordinates);
     });
+
   }
 
   addMarker(coordinates: mapboxgl.LngLat) {
@@ -48,18 +71,25 @@ export class LoadLocationComponent implements OnInit {
     }
   }
 
-  getAddress(lngLat: mapboxgl.LngLat) {
-    fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lngLat.lng},${lngLat.lat}.json?access_token=${mapboxgl.accessToken}`)
-      .then((response) => response.json())
-      .then((data) => {
-        const placeName = data.features[0].place_name;
-        console.log(`You clicked on: ${placeName}`);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-  }
 
+  setLocation(cordinates: mapboxgl.LngLat) {
+    const { lng, lat } = cordinates
+    const apiUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${mapboxgl.accessToken}`;
+    this.http.get(apiUrl).subscribe((data: any) => {
+      const placeName = data.features[0].place_name;
+      if (this.focus === 'start') {
+        this.locationService.setStartLocation({
+          coordinates: [lng, lat],
+          placeName: placeName
+        })
+      } else {
+        this.locationService.setEndLocation({
+          coordinates: [lng, lat],
+          placeName: placeName
+        })
+      }
+    });
+  }
 
 
 }
