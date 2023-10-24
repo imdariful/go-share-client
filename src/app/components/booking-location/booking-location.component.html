@@ -1,10 +1,11 @@
 
-<!-- <app-test-map-input></app-test-map-input> -->
+<div *ngIf="error" class=" relative">
+    <h2 class="absolute z-20 text-center bg-gray-900 py-2 px-8 capitalize rounded text-red-500 text-2xl left-[40%] bottom-0">{{error}}</h2>
+</div>
 
-<!-- [formGroup]="registrationForm" (ngSubmit)="getLocation_Time()" -->
-<!-- class=" border-t-8	 mt-20 pt-12" -->
 <div>
     <form (ngSubmit)="onSubmit()">
+        
         <div class="grid grid-cols-2 gap-8">
             <div>
                 <div class="relative alskfdl0 w-full mb-6 group">

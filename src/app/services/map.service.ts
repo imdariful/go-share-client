@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 
@@ -6,36 +8,14 @@ import * as mapboxgl from 'mapbox-gl';
 })
 export class MapService {
 
-  map: mapboxgl.Map | undefined;
-
-  constructor() { 
+  constructor(private http: HttpClient) {
     (mapboxgl as any).accessToken = 'pk.eyJ1IjoiYXNpZnVycmFobWFucGlhbCIsImEiOiJjbG5qd29ldTEwMjdsMnBsazFsaW1xcm5rIn0.L5kKxav_0VTewsxlvWUS2g';
   }
 
-  initializeMap(containerId: string) {
-    this.map = new mapboxgl.Map({
-      container: containerId,
-      style: 'mapbox://styles/mapbox/streets-v11',
-      center: [90.42488,23.76495],
-      zoom: 12, 
-    });
+
+  getDistance(startCoordinates: [number, number], endCoordinates: [number, number]): Observable<any> {
+    const apiUrl = `https://api.mapbox.com/directions/v5/mapbox/driving/${startCoordinates[0]}%2C${startCoordinates[1]}%3B${endCoordinates[0]}%2C${endCoordinates[1]}?alternatives=true&geometries=geojson&language=en&overview=full&steps=true&access_token=${mapboxgl.accessToken}`
+    return this.http.get(apiUrl)
   }
-
-  getMap() {
-    return this.map;
-  }
-
-  // setMarker(location: [number, number]) {
-  //   new mapboxgl.Marker()
-  //     .setLngLat(location)
-  //     .addTo(this.map);
-  // }
-
-  // calculateDistance(origin: [number, number], destination: [number, number]) {
-  //   return mapboxgl.MercatorCoordinate.fromLngLat(origin).distanceTo(
-  //     mapboxgl.MercatorCoordinate.fromLngLat(destination)
-  //   );
-  // }
-
 }
 

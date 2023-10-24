@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import { HttpClient } from '@angular/common/http';
 import { LocationService } from 'src/app/services/location.service';
+import { MapService } from 'src/app/services/map.service';
 
 @Component({
   selector: 'app-booking-location',
@@ -17,15 +18,16 @@ export class BookingLocationComponent {
   @Output() setLocation = new EventEmitter<Location>();
 
   // time and date variables
-  time: string | undefined;
-  date: string | undefined
+  time!: string;
+  date!: string;
   minDate: Date;
   minTime: Date | undefined;
 
   // location variables
   focus: string = 'start';
-  startLocation: string | null = null;
-  endLocation: string | null = null;
+  error!: string;
+  startLocation!: string;
+  endLocation!: string;
   startCoordinates!: [number, number]
   endCoordinates!: [number, number]
   onStartHide: boolean = false;
@@ -37,6 +39,7 @@ export class BookingLocationComponent {
     private route: Router,
     private fb: FormBuilder,
     private auth: AuthService,
+    private map: MapService,
     private http: HttpClient,
     private locationService: LocationService
   ) {
@@ -102,15 +105,32 @@ export class BookingLocationComponent {
     this.onEndHide = false
   }
   onSubmit() {
-    console.log({
-      startCoordinates: this.startCoordinates,
-      startLocation: this.startLocation,
-      endCoordinates: this.endCoordinates,
-      endLocation: this.endLocation,
-      time: this.time,
-      date: this.date
-    });
-    console.log("object");
+    if (this.startLocation && this.endLocation && this.time && this.date) {
+      if (this.startLocation.includes("Bangladesh") && this.endLocation.includes("Bangladesh")) {
+        this.map.getDistance(this.startCoordinates, this.endCoordinates).subscribe((source: any) => {
+          const { duration, distance } = source.routes[0];
+          if (duration && distance >= 3000) {
+            this.setLocation.emit({
+              startCoordinates: this.startCoordinates,
+              startLocation: this.startLocation,
+              endCoordinates: this.endCoordinates,
+              endLocation: this.endLocation,
+              time: this.time,
+              date: this.date,
+              duration,
+              distance,
+            })
+          } else {
+            this.error = "Distance must be greater than 3km";
+          }
+        });
+      } else {
+        this.error = "Both locations must be in Bangladesh";
+      }
+    } else {
+      this.error = "Please fill all the fields";
+    }
+
   }
 
 

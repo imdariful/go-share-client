@@ -30,7 +30,7 @@ export class BookingComponent implements OnInit{
 
   setLocation(newLocation: Location) {
     this.location = newLocation;
-    // console.log(newLocation);
+    console.log(newLocation);
     this.router.navigate(['/booking/2']);
   }
 

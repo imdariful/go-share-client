@@ -1,8 +1,12 @@
 export interface Location {
-    load_location: String;
-    unload_location: string;
-    date: string;
+    startCoordinates: [number, number];
+    startLocation: string;
+    endCoordinates: [number, number];
+    endLocation: string;
     time: string;
+    date: string;
+    duration: number;
+    distance: number;
 }
 
 
