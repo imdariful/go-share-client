@@ -23,6 +23,7 @@ import { CookieModule } from 'ngx-cookie';
 import { LoadLocationComponent } from './components/load-location/load-location.component';
 import { UnloadLocationComponent } from './components/unload-location/unload-location.component';
 import { HttpClientModule } from '@angular/common/http';
+import { BookingItemsComponent } from './components/booking-items/booking-items.component';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { HttpClientModule } from '@angular/common/http';
     HomeCardComponent,
     LoadLocationComponent,
     UnloadLocationComponent,
+    BookingItemsComponent,
   ],
   imports: [
     BrowserModule,

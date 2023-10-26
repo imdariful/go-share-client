@@ -1,13 +1,6 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import * as mapboxgl from 'mapbox-gl';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Location } from 'src/app/interfaces/location';
-import { AuthService } from 'src/app/services/auth.service';
-import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
-import { HttpClient } from '@angular/common/http';
 import { LocationService } from 'src/app/services/location.service';
-import { MapService } from 'src/app/services/map.service';
 
 @Component({
   selector: 'app-booking-location',
@@ -20,8 +13,6 @@ export class BookingLocationComponent {
   // time and date variables
   time!: string;
   date!: string;
-  minDate: Date;
-  minTime: Date | undefined;
 
   // location variables
   focus: string = 'start';
@@ -36,22 +27,8 @@ export class BookingLocationComponent {
 
 
   constructor(
-    private route: Router,
-    private fb: FormBuilder,
-    private auth: AuthService,
-    private map: MapService,
-    private http: HttpClient,
     private locationService: LocationService
   ) {
-    (mapboxgl as any).accessToken = 'pk.eyJ1IjoiYXNpZnVycmFobWFucGlhbCIsImEiOiJjbG5qd29ldTEwMjdsMnBsazFsaW1xcm5rIn0.L5kKxav_0VTewsxlvWUS2g';
-
-    // time & date configaration
-    this.minDate = new Date();
-    this.minTime = new Date();
-    this.minDate.setDate(this.minDate.getDate());
-    this.minTime.setHours(0);
-    this.minTime.setMinutes(0);
-
     // set location from map to input field
     this.locationService.getStartLocation().subscribe((data: any) => {
       this.startCoordinates = data.coordinates
@@ -72,8 +49,7 @@ export class BookingLocationComponent {
 
 
   setLocationsuggestions(place: any) {
-    const apiUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${place}.json?access_token=${mapboxgl.accessToken}`;
-    this.http.get(apiUrl).subscribe((data: any) => {
+    this.locationService.getSuggestions(place).subscribe((data: any) => {
       this.locationsuggestions = data.features.map((feature: any) => {
         return { placeName: feature.place_name, coordinates: feature.geometry.coordinates }
       });
@@ -107,7 +83,7 @@ export class BookingLocationComponent {
   onSubmit() {
     if (this.startLocation && this.endLocation && this.time && this.date) {
       if (this.startLocation.includes("Bangladesh") && this.endLocation.includes("Bangladesh")) {
-        this.map.getDistance(this.startCoordinates, this.endCoordinates).subscribe((source: any) => {
+        this.locationService.getDistance(this.startCoordinates, this.endCoordinates).subscribe((source: any) => {
           const { duration, distance } = source.routes[0];
           if (duration && distance >= 3000) {
             this.setLocation.emit({
@@ -130,7 +106,6 @@ export class BookingLocationComponent {
     } else {
       this.error = "Please fill all the fields";
     }
-
   }
 
 
