@@ -1,5 +1,44 @@
 
-<form  [formGroup]="cargoAndVehicleForm" (ngSubmit)="getCargo_Vehicle()">
+
+
+<div class="flex items-center gap-6 max-w-[90%] mx-auto mb-12">
+  <div *ngFor="let car of cars" 
+  (click)="select(car.id)"
+  class="p-4 cursor-pointer vehicle"
+  [ngClass]="{'bg-blue-100': selectId === car.id}"
+  >
+    <div class="imgs relative max-w-[92%] mx-auto">
+      <img [src]="'assets/images/'+car.img" alt="">
+      <img *ngIf="helper && selectId == car.id" style="z-index: 1;" class="absolute bottom-[4px] left-[56%] max-w-[40px] " src="assets/images/helper.png" alt="">
+      <img *ngIf="selectId == car.id" style="z-index: 2;" class="absolute bottom-0 left-[36%] max-w-[40px] " src="assets/images/delivery_pro.png" alt="">
+    </div>
+    <h2 class="capitalize text-3xl mt-4 mb-2">{{car.title}}</h2>
+    <p class="text-base">{{car.dis}}</p>
+  </div>
+</div>
+
+<div class="max-w-[90%] mx-auto">
+  <h2 class="text-2xl text-bold fw-bold">Need Helper?</h2>
+  <div class="flex items-center mt-4 mb-12">
+    <button
+    [ngClass]="{'border-blue-200 bg-blue-200': !helper}" (click)="addHelper(false)"
+        class="text-blue-700 border border-gray-300 hover:bg-blue-100 hover:text-blue-800 focus:outline-none  font-medium  text-md p-2 px-4">NO</button>
+    <button
+    [ngClass]="{'border-blue-200 bg-blue-200': helper}" (click)="addHelper(true)"
+    class="text-blue-700 border border-s-0  border-gray-300 hover:bg-blue-100 hover:text-blue-800 focus:bg-blue-200 focus:outline-none  font-medium  text-md p-2 px-4">YES</button>
+   
+</div>
+  <div class="flex items-center gap-4">
+    <button
+    (click)="goBack()"
+        class="text-blue-700 border border-gray-300 hover:bg-blue-100 hover:text-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-md p-4 px-10 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Back</button>
+    <button
+    (click)="setVehicle()"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-md p-4 px-10 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Countinue</button>
+</div>
+</div>
+
+<!-- <form  [formGroup]="cargoAndVehicleForm" (ngSubmit)="getCargo_Vehicle()">
     <select formControlName="vehicle" class="my-4" data-te-select-init>
         <option value="1" selected disabled>Select A Vehicle</option>
         <option value="2">Truck</option>
@@ -38,6 +77,6 @@
 
     <button type="submit"
         class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Countinue</button>
-</form>
+</form> -->
 
 

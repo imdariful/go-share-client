@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { cargoItems } from './../../config/cargoItem';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { SessionService } from 'src/app/services/session.service';
 
 interface CargoItem {
@@ -18,6 +18,8 @@ interface CargoItem {
 })
 export class BookingItemsComponent {
 
+  @Output() goNext = new EventEmitter<boolean>();
+
   cargoItems: CargoItem[] = [];
   cargoItemName!: string;
   cargoItemsSuggetions: any[] = [];
@@ -25,6 +27,13 @@ export class BookingItemsComponent {
 
   constructor(private location: Location, private session: SessionService) {}
 
+
+  ngOnInit(){
+    const data = this.session.getItem();
+    if (data && data.cargoItems) {
+      this.cargoItems = data.cargoItems
+    }
+  }
 
   setCargoItem(cargoItem: CargoItem) {
     this.cargoItemName = cargoItem.item;
@@ -57,8 +66,9 @@ export class BookingItemsComponent {
   }
 
   setCargoValue() {
-    console.log(this.cargoItems);
-    this.session.setItem(this.cargoItems);
+    this.session.setItem({cargoItems: this.cargoItems});
+    this.goNext.emit(true)
   }
 
 }
+      

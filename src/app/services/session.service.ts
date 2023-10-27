@@ -22,6 +22,7 @@ export class SessionService {
   getItem() {
     const data = sessionStorage.getItem('bookingData');
     if (data) {
+      console.log(data);
       return JSON.parse(data);
     }
     else {

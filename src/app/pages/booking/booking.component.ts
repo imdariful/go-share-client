@@ -28,10 +28,14 @@ export class BookingComponent implements OnInit{
     
   }
 
-  setLocation(newLocation: Location) {
-    this.location = newLocation;
-    console.log(newLocation);
-    this.router.navigate(['/booking/2']);
+  setLocation(next: boolean) {
+    console.log(next);
+    // this.router.navigate(['/booking/2']);
+  }
+
+  goNext(next: boolean){
+    console.log(next);
+    this.router.navigate([`/booking/${this.id+1}`]);
   }
 
   setCargo(newCargo: CargoAndVehicle) {

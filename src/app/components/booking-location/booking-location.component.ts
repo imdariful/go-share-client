@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Location } from 'src/app/interfaces/location';
 import { LocationService } from 'src/app/services/location.service';
+import { SessionService } from 'src/app/services/session.service';
 
 @Component({
   selector: 'app-booking-location',
@@ -8,7 +9,8 @@ import { LocationService } from 'src/app/services/location.service';
   styleUrls: ['./booking-location.component.scss']
 })
 export class BookingLocationComponent {
-  @Output() setLocation = new EventEmitter<Location>();
+  @Output() setLocation = new EventEmitter<boolean>();
+  @Output() goNext = new EventEmitter<boolean>();
 
   // time and date variables
   time!: string;
@@ -27,7 +29,8 @@ export class BookingLocationComponent {
 
 
   constructor(
-    private locationService: LocationService
+    private locationService: LocationService,
+    private session: SessionService
   ) {
     // set location from map to input field
     this.locationService.getStartLocation().subscribe((data: any) => {
@@ -40,6 +43,24 @@ export class BookingLocationComponent {
       this.endLocation = data.placeName;
       this.onEndHide = false
     })
+  }
+
+  ngOnInit() {
+    const data = this.session.getItem();
+    if (data && data.startLocation) {
+      this.startLocation = data.startLocation
+      this.locationService.setStartLocation({
+        coordinates:[...data.startCoordinates],
+        placeName: data.startLocation
+      })
+      this.endLocation = data.endLocation
+      this.locationService.setEndLocation({
+        coordinates: [...data.endCoordinates],
+        placeName: data.endLocation
+      })
+      this.date = data.date 
+      this.time = data.time
+    }
   }
 
 
@@ -86,7 +107,7 @@ export class BookingLocationComponent {
         this.locationService.getDistance(this.startCoordinates, this.endCoordinates).subscribe((source: any) => {
           const { duration, distance } = source.routes[0];
           if (duration && distance >= 3000) {
-            this.setLocation.emit({
+            const data = {
               startCoordinates: this.startCoordinates,
               startLocation: this.startLocation,
               endCoordinates: this.endCoordinates,
@@ -95,7 +116,10 @@ export class BookingLocationComponent {
               date: this.date,
               duration,
               distance,
-            })
+            }
+            // this.setLocation.emit(true)
+            this.goNext.emit(true)
+            this.session.setItem(data)
           } else {
             this.error = "Distance must be greater than 3km";
           }
