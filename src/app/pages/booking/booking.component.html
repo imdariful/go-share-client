@@ -31,13 +31,13 @@
   </ol>
 
   <div
-    class="block mt-10 w-full max-w-screen-2xl mx-auto rounded-lg bg-white text-left shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
-    <div class="p-10">
+  [ngClass]="{ 'shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]': id != 4 }"
+    class="block mt-10 w-full max-w-screen-2xl mx-auto rounded bg-white text-left">
+    <div [ngClass]="{'p-10': id != 4}">
       <app-booking-location (goNext)="goNext($event)" (setLocation)="setLocation($event)" *ngIf="id === 1"></app-booking-location>
       <app-booking-items (goNext)="goNext($event)" *ngIf="id === 2"></app-booking-items>
       <app-booking-cargo (goNext)="goNext($event)" *ngIf="id === 3"></app-booking-cargo>
-      <app-booking-review *ngIf="id === 4" [location]="location"
-        [cargoAndVehicle]="cargoAndVehicle"></app-booking-review>
+      <app-booking-review *ngIf="id === 4"></app-booking-review>
     </div>
   </div>
 

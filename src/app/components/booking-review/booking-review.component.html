@@ -1,10 +1,100 @@
 
-<h1>Review</h1>
+<div>
+    <div class="flex  justify-between gap-8 mb-10">
+        <div class="min-w-[55%] p-4 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+            <span class="text-base text-gray-400">Load Location</span>
+            <h2 class="text-gray-800 text-xl fw-bold mb-6">{{bookingsData.startLocation}}</h2>
+            <span class="text-base text-gray-400">Unload Location</span>
+            <h2 class="text-gray-800 text-xl fw-bold mb-6">{{bookingsData.endLocation}}</h2>
+            <span class="text-base text-gray-400">Pickup Date & Time</span>
+            <h2 class="text-gray-800 text-xl fw-bold">{{bookingsData.date}} at {{bookingsData.time}}</h2>
+        </div>
+        <div class="w-full p-4 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+            <div class="flex items-center justify-between">
+                <span class="text-base text-gray-600">Pirce breakdown</span>
+                <span class="text-base cursor-pointer hover:bg-blue-100 py-2 px-4  text-gray-600">Details</span>
+            </div>
+            <div class="flex items-center justify-between">
+                <span class="text-base text-gray-600">Truck cost</span>
+                <span class="text-base text-gray-600">$70.50</span>
+            </div>
+            <div class="flex items-center justify-between">
+                <span class="text-base text-gray-600">Helper cost</span>
+                <span class="text-base text-gray-600">$70.50</span>
+            </div>
+            <div class="flex items-center justify-between">
+                <span class="text-base text-gray-600">Extra cost</span>
+                <span class="text-base text-gray-600">$70.50</span>
+            </div>
+            <div class="h-px w-full bg-gray-300 my-2"></div>
+            <div class="flex items-center justify-between">
+                <span class="text-base text-gray-600">Total cost</span>
+                <span class="text-base text-gray-600">$70.50</span>
+            </div>
+            <div class="flex items-center justify-between mt-4 mb-2">
+                <span class="text-base text-gray-600">Card</span>
+                <span class="text-base text-blue-500 cursor-pointer hover:bg-blue-100 py-2 px-4  text-gray-600">ADD</span>
+            </div>
+            <div class="flex items-center justify-between">
+                <div class="relative w-full mb-6 group">
+                    <input
+                        type="text"
+                        name="promo"
+                        id="promo"
+                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        placeholder=" " required />
+                    <label for="promo"
+                        class=" peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -alskfdl10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Your Code</label>
+                </div>
+                <button
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium text-sm p-2 px-4 ms-4">Apply</button>
+            </div>
+        </div>
+    </div>
+    <div class="w-full mb-8 p-12 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+        <div *ngFor="let item of bookingsData.cargoItems; let i = index" class="flex items-center gap-4">
+            <h3>{{i+1}}.</h3>
+            <h2 class="capitalize">{{item.item}} - {{item.pis}} pieces</h2>
+            <span
+                class="ms-auto hover:bg-gray-100 cursor-pointer focus:ring-4 focus:outline-none focus:ring-blue-300">
+                <!-- <img src="https://icons8.com/icon/68138/trash-can"> -->
+                <svg
+                    width="32"
+                    height="32"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <rect width="100" height="100" rx="2" ry="2"
+                        fill="transparent" />
+                    <line
+                        x1="30"
+                        y1="35"
+                        x2="70"
+                        y2="65"
+                        stroke="#000"
+                        stroke-width="10" />
+                    <line
+                        x1="70"
+                        y1="35"
+                        x2="30"
+                        y2="65"
+                        stroke="#000"
+                        stroke-width="10" />
+                </svg>
 
-<div *ngIf="location && cargoAndVehicle">
-    <!-- <h1>{{location.load_location}} from {{location.unload_location}}</h1>
-    <h3>Time to pick up {{location.date}} at {{location.time}}</h3>
-    <h5>{{cargoAndVehicle.vehicle}}</h5>
-    <p *ngFor="let cargo of cargoAndVehicle.cargo">{{cargo}}</p>
-    <p *ngIf="cargoAndVehicle.description">{{cargoAndVehicle.description}}</p> -->
+            </span>
+        </div>
+    </div>
+    <div class="mb-6 flex items-center">
+        <input class="me-2 focus:ring-2 focus:outline-none focus:ring-blue-300 " [(ngModel)]="isAgreed" type="checkbox" name="" id=""><span>I agree to the conditions</span>
+    </div>
+    <div class="flex items-center gap-4">
+        <button
+            (click)="goBack()"
+            class="text-blue-700 border border-gray-300 hover:bg-blue-100 hover:text-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-md p-4 px-10 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Back</button>
+        <button
+            (click)="booked()"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-md p-4 px-10 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Book Now</button>
+    </div>
 </div>
+
+

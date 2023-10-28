@@ -21,6 +21,7 @@ export class BookingCargoComponent {
 
   selectId = 1
   helper= false;
+  distance = 0;
  
 
   constructor(
@@ -41,6 +42,10 @@ export class BookingCargoComponent {
     this.location.back();
   }
 
+  getPrice(id: any){
+    return "this id "
+  }
+
   setVehicle() {
     const vehcle = this.cars.find(car=> car.id === this.selectId)
     this.session.setItem({vehcle: {helper: this.helper, ...vehcle}})
@@ -52,6 +57,9 @@ export class BookingCargoComponent {
     if (data && data.vehcle) {
       this.selectId = data.vehcle.id;
       this.helper = data.vehcle.helper;
+    }
+    if(data.distance){
+      this.distance = data.distance
     }
   }
   
