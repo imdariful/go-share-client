@@ -1,3 +1,4 @@
+import { cargoItems } from './../../config/cargoItem';
 import { Location } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
@@ -5,6 +6,7 @@ import { CargoAndVehicle } from 'src/app/interfaces/location';
 import { Truck } from 'src/app/interfaces/truck';
 import { ProjectService } from 'src/app/services/project.service';
 import { SessionService } from 'src/app/services/session.service';
+
 
 @Component({
   selector: 'app-booking-cargo',
@@ -20,6 +22,7 @@ export class BookingCargoComponent {
   detailsId = 0;
   helper= false;
   distance = 0;
+  totalWeight = 0;
  
 
   constructor(
@@ -55,8 +58,10 @@ export class BookingCargoComponent {
       this.selectId = data.vehcle.id;
       this.helper = data.vehcle.helper;
     }
-    if(data.distance){
+    if(data.distance && data.cargoItems){
       this.cars = this.project.getPrice(data.distance)
+      this.totalWeight = this.project.getTotalWeight(data.cargoItems)
+      console.log(this.totalWeight);
     }
   }
 
@@ -66,7 +71,6 @@ export class BookingCargoComponent {
   }
 
   showDetails(id: number) {
-    console.log(id);
     this.detailsId = id
   }
   

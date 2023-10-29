@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Prices, Trucks } from '../config/track.alg';
-import { Truck } from '../interfaces/truck';
+import { CargoItem, Truck } from '../interfaces/truck';
 
 @Injectable({
   providedIn: 'root'
@@ -49,5 +49,12 @@ export class ProjectService {
     return trucks;
   }
 
+  getTotalWeight(items: CargoItem[]): number {
+    let totalWeight = 0;
+    for(let item of items){
+      totalWeight += item.pis * item.weight
+    }
+    return totalWeight;
+  }
 
 }
