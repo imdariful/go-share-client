@@ -2,14 +2,10 @@ import { Location } from '@angular/common';
 import { cargoItems } from './../../config/cargoItem';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { SessionService } from 'src/app/services/session.service';
+import { CargoItem } from 'src/app/interfaces/truck';
+import { genRandonString, getRandom } from 'src/app/utlt/utl';
 
-interface CargoItem {
-  id: string,
-  item: string,
-  pis: number,
-  weight?: number,
-  description?: string
-}
+
 
 @Component({
   selector: 'app-booking-items',
@@ -22,7 +18,7 @@ export class BookingItemsComponent {
 
   cargoItems: CargoItem[] = [];
   cargoItemName!: string;
-  cargoItemsSuggetions: any[] = [];
+  cargoItemsSuggetions: CargoItem[] = [];
 
 
   constructor(private location: Location, private session: SessionService) {}
@@ -36,28 +32,37 @@ export class BookingItemsComponent {
   }
 
   setCargoItem(cargoItem: CargoItem) {
-    this.cargoItemName = cargoItem.item;
+    this.cargoItemName = cargoItem.title;
     this.cargoItemsSuggetions = [];
   }
 
   searchCargoItem() {
-    this.cargoItemsSuggetions = cargoItems.filter(item => item.item.toLowerCase().includes(this.cargoItemName.toLowerCase()))
+    this.cargoItemsSuggetions = cargoItems.filter(item => item.title.toLowerCase().includes(this.cargoItemName.toLowerCase()))
   }
-  removeCargoItem(id: string) {
-    this.cargoItems = this.cargoItems.filter(item => item.id !== id);
+  removeCargoItem(title: string) {
+    this.cargoItems = this.cargoItems.filter(item => item.title !== title);
   }
 
   quantityChange(i: number, q: number) {
       this.cargoItems[i].pis += q;
   }
   onSubmit() {
-    this.cargoItems.push({
-      id: (this.cargoItems.length + 1).toString(),
-      item: this.cargoItemName,
-      pis: 1,
-      weight: 50,
-      description: ""
-    })
+    const newItem = cargoItems.find(item => item.title.toLowerCase().includes(this.cargoItemName.toLowerCase()))
+    if(newItem) {
+      this.cargoItems.push(newItem);
+    }else{
+      const ran = getRandom(10);
+      this.cargoItems.push({
+        title: this.cargoItemName,
+        des: genRandonString(getRandom(30)),
+        weight: getRandom(40),
+        height: getRandom(30),
+         lenght: getRandom(100),
+         width: getRandom(60),
+        pis: 1,
+        extra: ran == 3 || ran == 5 || ran == 7
+      })
+    }
     this.cargoItemName = "";
   }
 

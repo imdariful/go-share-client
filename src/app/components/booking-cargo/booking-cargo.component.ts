@@ -2,6 +2,8 @@ import { Location } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { CargoAndVehicle } from 'src/app/interfaces/location';
+import { Truck } from 'src/app/interfaces/truck';
+import { ProjectService } from 'src/app/services/project.service';
 import { SessionService } from 'src/app/services/session.service';
 
 @Component({
@@ -12,21 +14,18 @@ import { SessionService } from 'src/app/services/session.service';
 export class BookingCargoComponent {
   @Output() goNext = new EventEmitter<boolean>();
 
-  cars = [
-    {id:1,img:"pickup_truck.png", title: "Pickup Truck", dis: 'Great for 1-2 pieces of furniture, mattress, small appliances, lumber'},
-    {id:2,img:"cargo_van.png", title: "cargo van", dis: 'Ideal for sectional sofas, small home moves, pallets, large parcels'},
-    {id:3,img:"box_truck.png", title: "box truck", dis: 'Great for Pallets, LTL freight, FTL freight, Home Moves'},
-    {id:4,img:"new_car.png", title: "courier", dis: 'Small parcels or packages under 50 lbs. No manual labor or heavy lifting'},
-  ]
+  cars: Truck[] = []
 
   selectId = 1
+  detailsId = 0;
   helper= false;
   distance = 0;
  
 
   constructor(
     private location: Location,
-    private session: SessionService
+    private session: SessionService,
+    private project : ProjectService
   ) {}
   
   select(id:number){
@@ -42,15 +41,13 @@ export class BookingCargoComponent {
     this.location.back();
   }
 
-  getPrice(id: any){
-    return "this id "
-  }
+  
 
-  setVehicle() {
-    const vehcle = this.cars.find(car=> car.id === this.selectId)
-    this.session.setItem({vehcle: {helper: this.helper, ...vehcle}})
-    this.goNext.emit(true)
-  }
+  // setVehicle() {
+  //   const vehcle = this.cars.find(car=> car.id === this.selectId)
+  //   this.session.setItem({vehcle: {helper: this.helper, ...vehcle}})
+  //   this.goNext.emit(true)
+  // }
 
   ngOnInit(){
     const data = this.session.getItem();
@@ -59,8 +56,18 @@ export class BookingCargoComponent {
       this.helper = data.vehcle.helper;
     }
     if(data.distance){
-      this.distance = data.distance
+      this.cars = this.project.getPrice(data.distance)
     }
+  }
+
+
+  getWeightDisplay(car: Truck): string {
+   return (car.weight/1000) >= 1? (car.weight/1000).toFixed(1) + 'ton': Math.floor(car.weight) + 'kg'
+  }
+
+  showDetails(id: number) {
+    console.log(id);
+    this.detailsId = id
   }
   
 }

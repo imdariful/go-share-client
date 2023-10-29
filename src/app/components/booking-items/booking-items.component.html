@@ -4,12 +4,13 @@
         are moving?</h1>
     <div *ngIf="cargoItems?.length" class=" border-b border-gray-300 mb-6">
         <div *ngFor="let cargoItem of cargoItems; let i = index"
-            class="mb-4 max-w-[35%]">
+            class="mb-4 max-w-[35%] shadow-sm p-4">
             <div class="flex items-center gap-4">
                 <h3>{{i+1}}.</h3>
-                <h2 class="capitalize">{{cargoItem.item}}</h2>
+                <h2 class="capitalize">{{cargoItem.title}} - {{cargoItem.weight}}kg</h2>
+               
                 <span
-                    (click)="removeCargoItem(cargoItem.id)"
+                    (click)="removeCargoItem(cargoItem.title)"
                     class="ms-auto hover:bg-gray-100 cursor-pointer focus:ring-4 focus:outline-none focus:ring-blue-300">
                     <!-- <img src="https://icons8.com/icon/68138/trash-can"> -->
                     <svg
@@ -37,6 +38,7 @@
 
                 </span>
             </div>
+            <p class="text-base">{{cargoItem.des}}</p>
             <div class="flex items-center gap-4 mt-2 ms-6">
                 <h3 class="flex items-center gap-4">
                     <span
@@ -89,9 +91,9 @@
                         class="cursor-pointer py-2 px-4">
                         <!-- <div class> -->
                         <h3 class>{{
-                            cargoItem.item}}</h3>
+                            cargoItem.title}}</h3>
                         <p class="ms-4 text-sm text-gray-300"
-                            *ngIf="cargoItem?.description">{{cargoItem.description}}</p>
+                            *ngIf="cargoItem?.des">{{cargoItem.des}}</p>
                         <!-- </div> -->
                     </div>
                 </div>

@@ -1,9 +1,10 @@
 
 
-<div class="flex items-center gap-6 max-w-[90%] mx-auto mb-12">
-  <div data-tooltip-target="tooltip-default" *ngFor="let car of cars"
+<div class="flex  gap-6 max-w-[90%] mx-auto mb-12">
+  <div [attr.data-tooltip-target]="'tooltip-' + car.title"
+    *ngFor="let car of cars"
     (click)="select(car.id)"
-    class="p-4 cursor-pointer vehicle"
+    class="p-4 relative cursor-pointer vehicle"
     [ngClass]="{'bg-blue-100': selectId === car.id}">
     <div class="imgs relative max-w-[92%] mx-auto">
       <img [src]="'assets/images/'+car.img" alt>
@@ -13,19 +14,72 @@
       <img *ngIf="selectId == car.id" style="z-index: 2;"
         class="absolute bottom-0 left-[36%] max-w-[40px] "
         src="assets/images/delivery_pro.png" alt>
-        <!-- <span class="absolute bottom-0 right-0">${{ distance + ',' + car.id | price }}</span> -->
-        <span class="absolute bottom-0 right-0">${{ getPrice(car.id) }}</span>
+      <!-- <span class="absolute bottom-0 right-0">${{ distance + ',' + car.id | price }}</span> -->
+      <span class="absolute bottom-0 right-0">${{ car.cost }}</span>
     </div>
     <h2 class="capitalize text-3xl mt-4 mb-2">{{car.title}}</h2>
-    <p class="text-base">{{car.dis}}</p>
-    <div id="tooltip-default" role="tooltip" class="absolute z-10 invisible max-w-[220px] inline-block px-3 py-2 text-gray-400 text-sm font-medium transition-opacity duration-300 bg-white border border-dashed border-blue-200 rounded shadow-sm opacity-0 tooltip dark:bg-gray-700">
-      Cost for your selected route of this truck : <span class="me-auto">${{ distance + ',' + car.id | price }}</span>
+    <p class="text-base">{{car.dis}} <span
+      (click)="showDetails(car.id)"
+        class="text-gray-400 hover:text-blue-700">...More</span></p>
+    <div [id]="'tooltip-' + car.title" role="tooltip"
+      class="absolute z-10 invisible max-w-[220px] inline-block px-3 py-2 text-gray-400 text-sm font-medium transition-opacity duration-300 bg-white border border-dashed border-blue-200 rounded shadow-sm opacity-0 tooltip dark:bg-gray-700">
+      Cost for your selected route of this truck : <span class="me-auto">${{
+        car.cost }}</span>
       <div class="tooltip-arrow  " data-popper-arrow></div>
-  </div>
+    </div>
+    <div
+    *ngIf="detailsId == car.id"
+      class="bg-white w-full z-10 max-w-[100%] absolute shadow-sm left-0 bottom-0">
+      <div class="relative">
+        <h1
+          class="text-center capitalize border-b-2 mb-2 border-gray-200 text-xl border-dashed	">details
+        </h1>
+        <span (click)="showDetails(0)" class="absolute right-0 top-0 hover:bg-blue-100 ">
+          <svg
+            width="32"
+            height="32"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" rx="2" ry="2"
+              fill="transparent" />
+            <line
+              x1="30"
+              y1="35"
+              x2="70"
+              y2="65"
+              stroke="#000"
+              stroke-width="10" />
+            <line
+              x1="70"
+              y1="35"
+              x2="30"
+              y2="65"
+              stroke="#000"
+              stroke-width="10" />
+          </svg>
+        </span>
+      </div>
+      <div class="flex items-center justify-between px-3">
+        <span class="text-base capitalize text-gray-600">max load capacity:</span>
+        <span class="text-base  text-gray-600">{{getWeightDisplay(car)}}</span>
+      </div>
+      <div class="flex items-center justify-between px-3">
+        <span class="text-base capitalize text-gray-600">Height:</span>
+        <span class="text-base  text-gray-600">{{car.height}}`</span>
+      </div>
+      <div class="flex items-center justify-between px-3">
+        <span class="text-base capitalize text-gray-600">width:</span>
+        <span class="text-base  text-gray-600">{{car.width}}`</span>
+      </div>
+      <div class="flex items-center justify-between px-3">
+        <span class="text-base capitalize text-gray-600">lenght:</span>
+        <span class="text-base  text-gray-600">{{car.length}}`</span>
+      </div>
+      <!-- <h3 class="text-center capitalize border-t-2 mt-2 border-gray-200 border-dashed	">Less</h3> -->
+    </div>
   </div>
 </div>
 <!-- <button  type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Default tooltip</button> -->
-
 
 <div class="max-w-[90%] mx-auto">
   <h2 class="text-2xl text-bold fw-bold">Need Helper?</h2>
@@ -45,48 +99,6 @@
       (click)="goBack()"
       class="text-blue-700 border border-gray-300 hover:bg-blue-100 hover:text-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-md p-4 px-10 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Back</button>
     <button
-      (click)="setVehicle()"
       class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-md p-4 px-10 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Countinue</button>
   </div>
 </div>
-
-<!-- <form  [formGroup]="cargoAndVehicleForm" (ngSubmit)="getCargo_Vehicle()">
-    <select formControlName="vehicle" class="my-4" data-te-select-init>
-        <option value="1" selected disabled>Select A Vehicle</option>
-        <option value="2">Truck</option>
-        <option value="3">Mini Truck</option>
-        <option value="4">Van</option>
-        <option value="5">Mini Van</option>
-      </select>
-
-  <div class="my-8">
-    <select 
-    formControlName="cargo"
-    class="mb-3"
-    data-te-select-init
-    data-te-select-placeholder="Example placeholder"
-    multiple>
-    <option value="1">Select Cargo</option>
-    <option value="2">Food</option>
-    <option value="3">Furnicers</option>
-    <option value="4">Wood</option>
-  </select>
-  </div>
-
-  <div class="relative mb-3" data-te-input-wrapper-init>
-    <textarea
-    formControlName="description"
-      class="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-      id="exampleFormControlTextarea1"
-      rows="3"
-      placeholder="Your message"></textarea>
-    <label
-      for="exampleFormControlTextarea1"
-      class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
-      >Description about cargo (optional)</label
-    >
-  </div>
-
-    <button type="submit"
-        class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Countinue</button>
-</form> -->

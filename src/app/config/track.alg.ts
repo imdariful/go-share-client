@@ -1,10 +1,56 @@
 import { Truck } from "../interfaces/truck"
 
 export const Trucks: Truck[] = [
-    {id: 1, name: 'pickup', heigh: 7.0, width: 6.0, length: 8.0, weight: 1902.89},
-    {id: 2, name: 'cargo van', heigh: 10.0, width: 7.0, length: 10.0, weight: 3964.36},
-    {id: 3, name: 'Box truck', heigh: 10.5, width: 7.0, length: 26, weight: 10822.699},
-    {id: 4, name: 'Courier', costPerKm: 15},
+    {
+        id: 1,
+        name: 'pickup',
+        height: 7,
+        width: 6,
+        length: 8,
+        weight: 1902.89,
+        img: 'pickup_truck.png',
+        title: 'Pickup Truck',
+        dis: 'Great for 1-2 pieces of furniture, mattress, small appliances, lumber',
+        cost: 0
+    },
+    {
+        id: 2,
+        name: 'cargo van',
+        height: 10,
+        width: 7,
+        length: 10,
+        weight: 3964.36,
+        img: 'cargo_van.png',
+        title: 'cargo van',
+        dis: 'Ideal for sectional sofas, small home moves, pallets, large parcels',
+        cost: 0
+    },
+    {
+        id: 3,
+        name: 'Box truck',
+        height: 10.5,
+        width: 7,
+        length: 26,
+        weight: 10822.699,
+        img: 'box_truck.png',
+        title: 'box truck',
+        dis: 'Great for Pallets, LTL freight, FTL freight, Home Moves',
+        cost: 0
+    },
+    {
+        id: 4,
+        name: 'Courier',
+        costPerKm: 15,
+        img: 'new_car.png',
+        title: 'courier',
+        dis: 'Small parcels or packages under 50 lbs. No manual labor or heavy lifting',
+        cost: 0,
+        height: 0,
+        width: 0,
+        length: 0,
+        weight: 250.750,
+    }
+
 ]
 
 export const Prices = [
@@ -38,3 +84,4 @@ export const Prices = [
         price: 72
     }
 ]
+

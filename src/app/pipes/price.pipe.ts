@@ -13,10 +13,10 @@ export class PricePipe implements PipeTransform {
     let cost = 0;
 
     const truck = Trucks.find(t => t.id === +id);
-    if (truck && truck.weight && truck.heigh && truck.width && truck.length) {
-      const { heigh, width, length, weight } = truck;
+    if (truck && truck.weight && truck.height && truck.width && truck.length) {
+      const { height, width, length, weight } = truck;
       const weightTon = weight / 1000;
-      const originalPrice = ((heigh + width + length) * weightTon) / 2;
+      const originalPrice = ((height + width + length) * weightTon) / 2;
       Prices.forEach((p,i) => {
         console.log(i);
         if(p.from && p.to) {
