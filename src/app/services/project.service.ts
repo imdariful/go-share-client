@@ -7,11 +7,12 @@ import { CargoItem, Truck } from '../interfaces/truck';
   providedIn: 'root'
 })
 export class ProjectService {
-
+  url = 'http://localhost:3001/projects/'
+  config = { withCredentials: true }
   constructor(private http: HttpClient) { }
 
   booked(data: any) {
-    console.log(data);
+    return this.http.post(this.url, data, this.config);
   }
 
   getPrice(distance: number): Truck[] {

@@ -1,0 +1,12 @@
+<div class="dashboard">
+    <div class="border-e-2 p-8">
+        <div class="flex justify-center items-center w-[120px] h-[120px] overflow-hidden border-2 border-gray-400 rounded-full dark:bg-gray-600">
+            <svg class=" w-[200px] h-[90px]  text-gray-400 " fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+        </div>
+        <div *ngIf="user" class="mt-2">
+            <h1 class="text-2xl capitalize">{{user.name}}</h1>
+            <h1>{{user.email}}</h1>
+        </div>
+    </div>
+    <div class="border-e-2 p-8">main bar</div>
+</div>

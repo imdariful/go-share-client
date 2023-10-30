@@ -45,12 +45,11 @@ export class BookingCargoComponent {
   }
 
   
-
-  // setVehicle() {
-  //   const vehcle = this.cars.find(car=> car.id === this.selectId)
-  //   this.session.setItem({vehcle: {helper: this.helper, ...vehcle}})
-  //   this.goNext.emit(true)
-  // }
+  setVehicle() {
+    const vehcle = this.cars.find(car=> car.id === this.selectId)
+    this.session.setItem({vehcle: {helper: this.helper, totalWeight: this.totalWeight,  ...vehcle}})
+    this.goNext.emit(true)
+  }
 
   ngOnInit(){
     const data = this.session.getItem();

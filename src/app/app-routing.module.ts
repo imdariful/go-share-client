@@ -8,6 +8,7 @@ import { BookingComponent } from './pages/booking/booking.component';
 import { BookingLocationComponent } from './components/booking-location/booking-location.component';
 import { BookingCargoComponent } from './components/booking-cargo/booking-cargo.component';
 import { HomeComponent } from './pages/home/home.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
     component: BookingComponent,
   },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -14,7 +15,7 @@ export class SingupPageComponent {
 
   registrationForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {
+  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router, private location: Location) {
     this.registrationForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -28,7 +29,7 @@ export class SingupPageComponent {
         const userData = this.registrationForm.value;
         const res = await this.auth.signUp(userData)
         this.registrationForm.reset();
-        this.router.navigate(['/profile']);
+        this.location.historyGo(-2)
       }
     } catch (error: any) {
       this.error = error.message

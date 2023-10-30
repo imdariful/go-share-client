@@ -25,6 +25,7 @@ import { UnloadLocationComponent } from './components/unload-location/unload-loc
 import { HttpClientModule } from '@angular/common/http';
 import { BookingItemsComponent } from './components/booking-items/booking-items.component';
 import { PricePipe } from './pipes/price.pipe';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { PricePipe } from './pipes/price.pipe';
     UnloadLocationComponent,
     BookingItemsComponent,
     PricePipe,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,

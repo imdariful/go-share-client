@@ -10,26 +10,26 @@
             <h2 class="text-gray-800 text-xl fw-bold">{{bookingsData.date}} at {{bookingsData.time}}</h2>
         </div>
         <div class="w-full p-4 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
-            <div class="flex items-center justify-between">
+            <div class="flex items-center justify-between mb-2 border-b-2 border-dashed">
                 <span class="text-base text-gray-600">Pirce breakdown</span>
                 <span class="text-base cursor-pointer hover:bg-blue-100 py-2 px-4  text-gray-600">Details</span>
             </div>
             <div class="flex items-center justify-between">
                 <span class="text-base text-gray-600">Truck cost</span>
-                <span class="text-base text-gray-600">$70.50</span>
+                <span class="text-base text-gray-600">${{truckCost}}</span>
             </div>
-            <div class="flex items-center justify-between">
+            <div *ngIf="helperCost" class="flex items-center justify-between">
                 <span class="text-base text-gray-600">Helper cost</span>
-                <span class="text-base text-gray-600">$70.50</span>
+                <span class="text-base text-gray-600">${{helperCost}}</span>
             </div>
-            <div class="flex items-center justify-between">
+            <div *ngIf="extraCost" class="flex items-center justify-between">
                 <span class="text-base text-gray-600">Extra cost</span>
-                <span class="text-base text-gray-600">$70.50</span>
+                <span class="text-base text-gray-600">${{extraCost}}</span>
             </div>
             <div class="h-px w-full bg-gray-300 my-2"></div>
             <div class="flex items-center justify-between">
                 <span class="text-base text-gray-600">Total cost</span>
-                <span class="text-base text-gray-600">$70.50</span>
+                <span class="text-base text-gray-600">${{totalCost}}</span>
             </div>
             <div class="flex items-center justify-between mt-4 mb-2">
                 <span class="text-base text-gray-600">Card</span>

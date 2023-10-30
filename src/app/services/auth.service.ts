@@ -10,7 +10,6 @@ import { Auth, Profile } from '../interfaces/auth';
 export class AuthService {
 
   url = 'http://localhost:3001/auth/'
-  token: string | undefined;
   config = { withCredentials: true }
 
   constructor(private cookieService: CookieService, private router: Router) { }
