@@ -8,18 +8,28 @@ import { BookingComponent } from './pages/booking/booking.component';
 import { BookingLocationComponent } from './components/booking-location/booking-location.component';
 import { BookingCargoComponent } from './components/booking-cargo/booking-cargo.component';
 import { HomeComponent } from './pages/home/home.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { DashboardComponent } from './layouts/dashboard/dashboard.component';
+import { AuthComponent } from './layouts/auth/auth.component';
+import { DefultLayoutComponent } from './layouts/defult-layout/defult-layout.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'login', component: LoginPageComponent },
-  { path: 'singup', component: SingupPageComponent },
+  { path: '', component: DefultLayoutComponent, children: [
+    { path: '', component: HomeComponent },
+  ]},
   {
-    path: 'booking/:id', 
+    path: 'auth', component: AuthComponent, children: [
+      { path: 'signin', component: LoginPageComponent },
+      { path: 'singup', component: SingupPageComponent },
+    ]
+  },
+  {
+    path: 'booking/:id',
     component: BookingComponent,
   },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], children: [
+    { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  ]},
 ];
 
 @NgModule({
