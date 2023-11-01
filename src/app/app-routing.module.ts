@@ -11,6 +11,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { DashboardComponent } from './layouts/dashboard/dashboard.component';
 import { AuthComponent } from './layouts/auth/auth.component';
 import { DefultLayoutComponent } from './layouts/defult-layout/defult-layout.component';
+import { ProjectsComponent } from './pages/projects/projects.component';
 
 const routes: Routes = [
   { path: '', component: DefultLayoutComponent, children: [
@@ -29,6 +30,7 @@ const routes: Routes = [
   
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], children: [
     { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+    { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard] },
   ]},
 ];
 

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { RouteService } from 'src/app/services/route.service';
 
-interface User{
+interface User {
   id: string;
   name: string;
   email: string;
@@ -14,14 +15,24 @@ interface User{
 })
 export class DashboardComponent {
   user!: User;
-  constructor(private auth: AuthService){}
-  ngOnInit(){
-   this.getUser()
+  route!: string;
+  routerEventsSubscription: any;
+  constructor(private auth: AuthService, private activeRoute: RouteService, private cdRef: ChangeDetectorRef ) { }
+  ngOnInit() {
+    this.getUser()
+    this.activeRoute.getTitle().subscribe((res: any) => {
+      this.route = res;
+      this.cdRef.detectChanges();
+    })
   }
 
-  async getUser(){
+  // ngOnDestroy() {
+  //   this.routerEventsSubscription.unsubscribe();
+  // }
+
+
+  async getUser() {
     this.user = await this.auth.profile()
-    console.log(this.user);
   }
 
 }

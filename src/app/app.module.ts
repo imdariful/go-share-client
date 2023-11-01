@@ -27,6 +27,7 @@ import { BookingItemsComponent } from './components/booking-items/booking-items.
 import { PricePipe } from './pipes/price.pipe';
 import { DashboardComponent } from './layouts/dashboard/dashboard.component';
 import { AuthComponent } from './layouts/auth/auth.component';
+import { ProjectsComponent } from './pages/projects/projects.component';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { AuthComponent } from './layouts/auth/auth.component';
     PricePipe,
     DashboardComponent,
     AuthComponent,
+    ProjectsComponent,
   ],
   imports: [
     BrowserModule,

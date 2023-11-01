@@ -1,7 +1,7 @@
 <div class="relative w-screen h-screen">
     <div
         class="border-e-2 h-screen overflow-y-auto fixed min-w-[22vw] max-w-[22vw]  top-0 left-0 bg-white">
-        <div class=" bg-blue-700  py-4">
+        <div routerLink="/" class="cursor-pointer bg-blue-700  py-4">
             <img class="mx-auto"
                 src="assets/images/goshare_logo_white.svg fill.png" alt>
         </div>
@@ -37,7 +37,7 @@
                     </a>
                 </li>
                 <li>
-                    <a routerLink="/dashboard/projects"
+                    <a routerLink="/dashboard/profile"
                         class="flex items-center py-4 px-6 text-gray-900  hover:bg-gray-100 group">
                         <svg
                             class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -51,7 +51,7 @@
                     </a>
                 </li>
                 <li>
-                    <a routerLink="/dashboard/projects"
+                    <a routerLink="/dashboard/payments"
                         class="flex items-center py-4 px-6 text-gray-900  hover:bg-gray-100 group">
                         <svg
                             class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -88,12 +88,13 @@
         </div>
     </div>
     <div
-        class="fixed left-[22vw] max-w-[78vw] w-full overflow-y-auto h-full min-h-[100vh] flex flex-col">
+        class="fixed left-[22vw] max-w-[78vw] bg-gray-300 w-full overflow-y-auto h-full min-h-[100vh] flex flex-col">
         <!-- dashboard main navbar -->
         <div class=" bg-blue-700  p-4 sticky top-0">
-            <h2 class="text-3xl ml-10 py-[2px] capitalize text-white">Projects</h2>
+            <h2 *ngIf="route" class="text-3xl ml-10 py-[2px] capitalize text-white">{{route}}</h2>
         </div>
-        <div class="my-10">
+        <!-- main -->
+        <div class="py-10 bg-gray-300">
             <router-outlet></router-outlet>
         </div>
         <!-- footer -->

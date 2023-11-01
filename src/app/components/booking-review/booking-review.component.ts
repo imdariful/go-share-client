@@ -2,7 +2,7 @@ import { cargoItems } from './../../config/cargoItem';
 import { Location } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CargoAndVehicle  } from 'src/app/interfaces/location';
+import { CargoAndVehicle } from 'src/app/interfaces/location';
 import { CargoItem } from 'src/app/interfaces/truck';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProjectService } from 'src/app/services/project.service';
@@ -21,25 +21,25 @@ export class BookingReviewComponent {
   extraCost = 0;
   totalCost = 0;
   constructor(
-    private session: SessionService, 
+    private session: SessionService,
     private location: Location,
     private project: ProjectService,
     private auth: AuthService,
     private router: Router
-    ) { }
+  ) { }
   ngOnInit(): void {
-   this.bookingsData =  this.session.getItem();
-   this.truckCost = this.bookingsData.vehcle.cost * 1;
-   this.helperCost = this.bookingsData.vehcle.helper? this.bookingsData.vehcle.helper * 1: 0;
-   this.extraCost = this.getExtraCost(this.bookingsData.cargoItems, this.bookingsData.vehcle.cost);
-   this.totalCost = this.truckCost + this.helperCost + this.extraCost
+    this.bookingsData = this.session.getItem();
+    this.truckCost = this.bookingsData.vehcle.cost * 1;
+    this.helperCost = this.bookingsData.vehcle.helper ? this.bookingsData.vehcle.helper * 1 : 0;
+    this.extraCost = this.getExtraCost(this.bookingsData.cargoItems, this.bookingsData.vehcle.cost);
+    this.totalCost = this.truckCost + this.helperCost + this.extraCost
   }
 
   getExtraCost(items: CargoItem[], cost: number): number {
     let isExtra = false;
     let extra = 0;
-    for(let item of items){
-      if(item.extra){
+    for (let item of items) {
+      if (item.extra) {
         isExtra = true;
         extra += item.pis;
       }
@@ -48,35 +48,35 @@ export class BookingReviewComponent {
     return result;
   }
 
-  goBack(){
+  goBack() {
     this.location.back();
   }
 
- async booked(){
-   if(this.isAgreed){
-    const user = await this.auth.profile()
-    if(user.id){
-      const {id,...result} = user;
-      this.project.booked({
-        ...result,
-        ...this.bookingsData,
-        userId: id,
-        totalCost: this.totalCost,
-        helperCost: this.helperCost,
-        extraCost: this.extraCost,
-        truckCost: this.truckCost
-      }).subscribe((res: any) => {
-        if(res.projectId){
+  async booked() {
+    if (this.isAgreed) {
+      const user = await this.auth.profile()
+      if (user.id) {
+        const { id, ...result } = user;
+        const data = await this.project.booked({
+          ...result,
+          ...this.bookingsData,
+          userId: id,
+          totalCost: this.totalCost,
+          helperCost: this.helperCost,
+          extraCost: this.extraCost,
+          truckCost: this.truckCost
+        })
+        console.log(data);
+        if (data.projectId) {
           this.session.removeItem()
-          this.router.navigate(['/profile']);
+          this.router.navigate(['/dashboard/projects']);
         }
-      })
-    }else{
-      this.router.navigate(['/login']);
+      } else {
+        this.router.navigate(['/auth/signin']);
+      }
+
     }
-    
-   }
-    
+
   }
- 
+
 }

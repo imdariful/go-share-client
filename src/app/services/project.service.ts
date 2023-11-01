@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Prices, Trucks } from '../config/track.alg';
 import { CargoItem, Truck } from '../interfaces/truck';
+import axios from 'axios';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,17 @@ export class ProjectService {
   config = { withCredentials: true }
   constructor(private http: HttpClient) { }
 
-  booked(data: any) {
-    return this.http.post(this.url, data, this.config);
+  booked = async (data: any): Promise<any> => {
+    try {
+      const res = await axios.post(`${this.url}`, data, this.config);
+      return res.data;
+    } catch (error: any) {
+      return error;
+    }
+  }
+
+  getUserProjects(id: string) {
+    return this.http.get(this.url+id, this.config);
   }
 
   getPrice(distance: number): Truck[] {

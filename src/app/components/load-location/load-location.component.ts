@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import { LocationService } from 'src/app/services/location.service';
-import { MapService } from 'src/app/services/map.service';
 
 @Component({
   selector: 'app-load-location',
