@@ -56,20 +56,15 @@ export class BookingReviewComponent {
     if (this.isAgreed) {
       const user = await this.auth.profile()
       if (user.id) {
-        const { id, ...result } = user;
         const data = await this.project.booked({
-          ...result,
           ...this.bookingsData,
-          userId: id,
           totalCost: this.totalCost,
           helperCost: this.helperCost,
           extraCost: this.extraCost,
           truckCost: this.truckCost
         })
-        console.log(data);
-        if (data.projectId) {
-          this.session.removeItem()
-          this.router.navigate(['/dashboard/projects']);
+        if (data.url) {
+          window.location.href = data.url;
         }
       } else {
         this.router.navigate(['/auth/signin']);

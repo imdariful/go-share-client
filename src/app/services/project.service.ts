@@ -3,18 +3,22 @@ import { Injectable } from '@angular/core';
 import { Prices, Trucks } from '../config/track.alg';
 import { CargoItem, Truck } from '../interfaces/truck';
 import axios from 'axios';
+import { CloudSvgComponent } from '../cloud-svg/cloud-svg.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectService {
   url = 'http://localhost:3001/projects/'
+  payUrl = 'http://localhost:3001/payment/'
   config = { withCredentials: true }
   constructor(private http: HttpClient) { }
 
   booked = async (data: any): Promise<any> => {
+    console.log(data)
     try {
       const res = await axios.post(`${this.url}`, data, this.config);
+      console.log(res)
       return res.data;
     } catch (error: any) {
       return error;
@@ -22,6 +26,7 @@ export class ProjectService {
   }
 
   getUserProjects(id: string) {
+
     return this.http.get(this.url+id, this.config);
   }
 

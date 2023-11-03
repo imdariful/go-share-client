@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import axios from 'axios';
 import { CookieService } from 'ngx-cookie';
 import { Auth, Profile } from '../interfaces/auth';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class AuthService {
 
   url = 'http://localhost:3001/auth/'
   config = { withCredentials: true }
+  private user: Subject<any> = new Subject<any>();
 
   constructor(private cookieService: CookieService, private router: Router) { }
 
@@ -40,11 +42,17 @@ export class AuthService {
   profile = async (): Promise<Profile> => {
     try {
       const res = await axios.get(`${this.url}profile`, this.config);
+      this.user.next(res.data);
       return res.data;
     } catch (error: any) {
       return error;
     }
   }
+
+  getProfile(): Observable<any> {
+    return this.user.asObservable();
+  }
+
 
 
 }
