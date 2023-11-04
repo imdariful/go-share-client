@@ -1,11 +1,11 @@
-
-
-#start , #end {
+.location{
+  width: 100%;
+  min-width: 560px;
+  max-width: 600px;
   height: 400px;
-  width: 600px;
-}
 
-
-.hide {
-  display: none;
+  #start {
+    height: 100%;
+    width: 100%;
+  }
 }

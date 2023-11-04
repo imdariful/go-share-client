@@ -93,7 +93,8 @@
                 </div>
             </div>
             <div>
-                <app-load-location [focus]="focus"></app-load-location>
+                <app-load-location *ngIf="focus == 'start'"></app-load-location>
+                <app-unload-loaction *ngIf="focus == 'end'"></app-unload-loaction>
             </div>
         </div>
         <button type="submit"

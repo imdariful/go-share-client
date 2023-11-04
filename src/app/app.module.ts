@@ -28,6 +28,7 @@ import { DashboardComponent } from './layouts/dashboard/dashboard.component';
 import { AuthComponent } from './layouts/auth/auth.component';
 import { ProjectsComponent } from './pages/projects/projects.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { UnloadLoactionComponent } from './components/unload-loaction/unload-loaction.component';
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import { FooterComponent } from './components/footer/footer.component';
     AuthComponent,
     ProjectsComponent,
     FooterComponent,
+    UnloadLoactionComponent,
   ],
   imports: [
     BrowserModule,

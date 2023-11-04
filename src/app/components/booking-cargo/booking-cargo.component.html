@@ -4,8 +4,8 @@
   <div [attr.data-tooltip-target]="'tooltip-' + car.title"
     *ngFor="let car of cars"
     (click)="select(car.id)"
-    class="p-4 relative cursor-pointer vehicle"
-    [ngClass]="{'bg-blue-100': selectId === car.id, 'disabled': totalWeight > car.weight}">
+    class="p-4 relative cursor-pointer vehicle shadow-[5px_5px_10px_3px_#ddd]"
+    [ngClass]="{'bg-blue-200': selectId === car.id, 'disabled': totalWeight > car.weight}">
     <div class="imgs relative max-w-[92%] mx-auto">
       <img [src]="'assets/images/'+car.img" alt>
       <img *ngIf="helper && selectId == car.id" style="z-index: 1;"
@@ -15,7 +15,7 @@
         class="absolute bottom-0 left-[36%] max-w-[40px] "
         src="assets/images/delivery_pro.png" alt>
       <!-- <span class="absolute bottom-0 right-0">${{ distance + ',' + car.id | price }}</span> -->
-      <span class="absolute text-3xl bottom-0 right-0">${{ car.cost }}</span>
+      <span class="absolute text-3xl z-50 bottom-0 right-0 bg-white">${{ car.cost }}</span>
     </div>
     <h2 class="capitalize text-3xl mt-4 mb-2 animate__animated animate__bounce">{{car.title}}</h2>
     <p class="text-base">{{car.dis}} <span

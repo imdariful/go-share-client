@@ -1,7 +1,7 @@
 
 <div>
     <div class="flex  justify-between gap-8 mb-10">
-        <div class="min-w-[55%] p-4 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+        <div class="min-w-[55%] p-4 shadow-[0px_2px_15px_6px_#ddd]">
             <span class="text-base text-gray-400">Load Location</span>
             <h2 class="text-gray-800 text-xl fw-bold mb-6">{{bookingsData.startLocation}}</h2>
             <span class="text-base text-gray-400">Unload Location</span>
@@ -9,7 +9,7 @@
             <span class="text-base text-gray-400">Pickup Date & Time</span>
             <h2 class="text-gray-800 text-xl fw-bold">{{bookingsData.date}} at {{bookingsData.time}}</h2>
         </div>
-        <div class="w-full p-4 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+        <div class="w-full p-4 shadow-[0px_2px_15px_6px_#ddd]">
             <div class="flex items-center justify-between mb-2 border-b-2 border-dashed">
                 <span class="text-base text-gray-600">Pirce breakdown</span>
                 <span class="text-base cursor-pointer hover:bg-blue-100 py-2 px-4  text-gray-600">Details</span>
@@ -51,7 +51,7 @@
             </div>
         </div>
     </div>
-    <div class="w-full mb-8 p-12 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+    <div class="w-full mb-8 p-12 shadow-[0px_2px_15px_6px_#ddd]">
         <div *ngFor="let item of bookingsData.cargoItems; let i = index" class="flex items-center gap-4">
             <h3>{{i+1}}.</h3>
             <h2 class="capitalize">{{item.item}} - {{item.pis}} pieces</h2>
