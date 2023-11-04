@@ -20,9 +20,15 @@ export class LoadLocationComponent implements AfterViewInit, OnChanges {
   }
 
 
+
   ngOnChanges(changes: any) {
     if (changes.focus) {
       this.initializeMap(this.focus);
+      window.addEventListener('resize', () => {
+        if (this.map) {
+          this.map.resize();
+        }
+      });
     }
   }
 

@@ -9,14 +9,14 @@
   </div>
   <div>
     <ul>
-      <li *ngIf="!user.id">
+      <li *ngIf="!user?.id">
 
         <a routerLink="/auth/signin" href="#"
           class="block uppercase text-white  py-2 pl-3 pr-4 hover:text-gray-300 hover:underline">Sign
           In</a>
       </li>
       
-      <li *ngIf="user.id">
+      <li *ngIf="user?.id">
         <!-- ================================================================================================= -->
 
         <div

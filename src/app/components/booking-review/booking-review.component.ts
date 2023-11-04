@@ -65,6 +65,7 @@ export class BookingReviewComponent {
         })
         if (data.url) {
           window.location.href = data.url;
+          this.session.removeItem()
         }
       } else {
         this.router.navigate(['/auth/signin']);

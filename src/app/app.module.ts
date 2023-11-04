@@ -21,13 +21,13 @@ import { DeliveryPromotionComponent } from './pages/home/delivery-promotion/deli
 import { HomeCardComponent } from './pages/home/home-card/home-card.component';
 import { CookieModule } from 'ngx-cookie';
 import { LoadLocationComponent } from './components/load-location/load-location.component';
-import { UnloadLocationComponent } from './components/unload-location/unload-location.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BookingItemsComponent } from './components/booking-items/booking-items.component';
 import { PricePipe } from './pipes/price.pipe';
 import { DashboardComponent } from './layouts/dashboard/dashboard.component';
 import { AuthComponent } from './layouts/auth/auth.component';
 import { ProjectsComponent } from './pages/projects/projects.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 @NgModule({
@@ -49,12 +49,12 @@ import { ProjectsComponent } from './pages/projects/projects.component';
     DeliveryPromotionComponent,
     HomeCardComponent,
     LoadLocationComponent,
-    UnloadLocationComponent,
     BookingItemsComponent,
     PricePipe,
     DashboardComponent,
     AuthComponent,
     ProjectsComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

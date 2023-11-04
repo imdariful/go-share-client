@@ -4,7 +4,7 @@
         are moving?</h1>
     <div *ngIf="cargoItems?.length" class=" border-b border-gray-300 mb-6">
         <div *ngFor="let cargoItem of cargoItems; let i = index"
-            class="mb-4 max-w-[35%] shadow-sm p-4">
+            class="mb-4 max-w-[35%] shadow-xl  p-4">
             <div class="flex items-center gap-4">
                 <h3>{{i+1}}.</h3>
                 <h2 class="capitalize">{{cargoItem.title}} - {{cargoItem.weight}}kg</h2>

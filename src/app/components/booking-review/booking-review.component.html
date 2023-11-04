@@ -24,7 +24,7 @@
             </div>
             <div *ngIf="extraCost" class="flex items-center justify-between">
                 <span class="text-base text-gray-600">Extra cost</span>
-                <span class="text-base text-gray-600">${{extraCost}}</span>
+                <span class="text-base text-gray-600">${{extraCost.toFixed(2)}}</span>
             </div>
             <div class="h-px w-full bg-gray-300 my-2"></div>
             <div class="flex items-center justify-between">

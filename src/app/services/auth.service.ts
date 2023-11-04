@@ -36,7 +36,7 @@ export class AuthService {
 
   signOut = (): void => {
     this.cookieService.remove("token");
-    this.router.navigate(['/']);
+    window.location.reload();
   }
 
   profile = async (): Promise<Profile> => {
