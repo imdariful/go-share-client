@@ -1,9 +1,9 @@
 
-<div *ngIf="error" class=" relative">
+<!-- <div *ngIf="error" class=" relative">
     <h2 class="absolute z-20 text-center bg-gray-900 py-2 px-8 capitalize rounded text-red-500 text-2xl left-[40%] bottom-0">{{error}}</h2>
-</div>
+</div> -->
 
-<div>
+<div class="shadow-[0px_2px_15px_6px_#ddd] p-10 animate__animated animate__slideInRight">
     <form (ngSubmit)="onSubmit()">
         
         <div class="grid grid-cols-2 gap-8">
@@ -98,7 +98,7 @@
             </div>
         </div>
         <button type="submit"
-            class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Countinue</button>
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-md p-4 px-10">Countinue</button>
     </form>
 </div>
 
