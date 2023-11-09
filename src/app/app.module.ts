@@ -29,6 +29,11 @@ import { AuthComponent } from './layouts/auth/auth.component';
 import { ProjectsComponent } from './pages/projects/projects.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { UnloadLoactionComponent } from './components/unload-loaction/unload-loaction.component';
+import { DriverSignupComponent } from './pages/driver-signup/driver-signup.component';
+import { PaymentsComponent } from './pages/payments/payments.component';
+import { DatePipe } from './pipes/date.pipe';
+import { MathFloorPipe } from './pipes/math-floor.pipe';
+import { ProjectDetailsComponent } from './components/project-details/project-details.component';
 
 
 @NgModule({
@@ -57,6 +62,11 @@ import { UnloadLoactionComponent } from './components/unload-loaction/unload-loa
     ProjectsComponent,
     FooterComponent,
     UnloadLoactionComponent,
+    DriverSignupComponent,
+    PaymentsComponent,
+    DatePipe,
+    MathFloorPipe,
+    ProjectDetailsComponent,
   ],
   imports: [
     BrowserModule,

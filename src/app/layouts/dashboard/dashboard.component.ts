@@ -1,14 +1,11 @@
 import { Location } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from 'src/app/interfaces/auth';
 import { AuthService } from 'src/app/services/auth.service';
 import { RouteService } from 'src/app/services/route.service';
 
-interface User {
-  id: string;
-  name: string;
-  email: string;
-}
+
 
 @Component({
   selector: 'app-dashboard',

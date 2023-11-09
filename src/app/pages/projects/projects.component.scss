@@ -1,0 +1,11 @@
+.disable {
+    pointer-events: none; 
+    opacity: 0.7; 
+    cursor: not-allowed; 
+  }
+
+.driver-projects{
+  display: grid;
+  grid-template-columns: 5fr 6fr;
+  gap: 20px;
+}

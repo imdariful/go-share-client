@@ -12,6 +12,8 @@ import { DashboardComponent } from './layouts/dashboard/dashboard.component';
 import { AuthComponent } from './layouts/auth/auth.component';
 import { DefultLayoutComponent } from './layouts/defult-layout/defult-layout.component';
 import { ProjectsComponent } from './pages/projects/projects.component';
+import { DriverSignupComponent } from './pages/driver-signup/driver-signup.component';
+import { PaymentsComponent } from './pages/payments/payments.component';
 
 const routes: Routes = [
   { path: '', component: DefultLayoutComponent, children: [
@@ -21,6 +23,7 @@ const routes: Routes = [
     path: 'auth', component: AuthComponent, children: [
       { path: 'signin', component: LoginPageComponent },
       { path: 'singup', component: SingupPageComponent },
+      { path: 'driver', component: DriverSignupComponent },
     ]
   },
   {
@@ -31,6 +34,8 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], children: [
     { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
     { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard] },
+    { path: 'myprojects', component: ProjectsComponent, canActivate: [AuthGuard] },
+    { path: 'payments', component: PaymentsComponent, canActivate: [AuthGuard] },
   ]},
 ];
 

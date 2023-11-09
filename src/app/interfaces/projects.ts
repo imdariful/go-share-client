@@ -9,6 +9,11 @@ interface CargoItem {
     width: number;
 }
 
+interface Bids{
+    price: number,
+    driverId: string
+}
+
 export interface Project {
     projectId: string;
     userId: string;
@@ -27,6 +32,7 @@ export interface Project {
     startCoordinates: [number, number];
     endCoordinates: [number, number];
     cargoItems: CargoItem[];
+    bids: Bids[];
     vehcle: {
         id: number;
         dis: string;

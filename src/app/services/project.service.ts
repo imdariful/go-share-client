@@ -10,15 +10,12 @@ import { CloudSvgComponent } from '../cloud-svg/cloud-svg.component';
 })
 export class ProjectService {
   url = 'http://localhost:3001/projects/'
-  payUrl = 'http://localhost:3001/payment/'
   config = { withCredentials: true }
   constructor(private http: HttpClient) { }
 
   booked = async (data: any): Promise<any> => {
-    console.log(data)
     try {
       const res = await axios.post(`${this.url}`, data, this.config);
-      console.log(res)
       return res.data;
     } catch (error: any) {
       return error;
@@ -26,8 +23,19 @@ export class ProjectService {
   }
 
   getUserProjects(id: string) {
-
     return this.http.get(this.url+id, this.config);
+  }
+
+  getDriverProjects(id: string) {
+    return this.http.get(`${this.url}driver/${id}`, this.config);
+  }
+
+  addBid(price: number, name: string, driverId: string, id: string){
+    return this.http.put(this.url+id, {price, driverId, name}, this.config);
+  }
+
+  getProjects() {
+    return this.http.get(this.url, this.config);
   }
 
   getPrice(distance: number): Truck[] {

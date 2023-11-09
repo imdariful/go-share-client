@@ -42,7 +42,16 @@ export class AuthService {
   profile = async (): Promise<Profile> => {
     try {
       const res = await axios.get(`${this.url}profile`, this.config);
-      this.user.next(res.data);
+      return res.data;
+    } catch (error: any) {
+      return error;
+    }
+  }
+
+  getDriver = async (id: string): Promise<Profile> => {
+    try {
+      const res = await axios.get(`${this.url}driver/${id}`, this.config);
+      // console.log(res)
       return res.data;
     } catch (error: any) {
       return error;

@@ -1,0 +1,12 @@
+<div class="w-full max-w-[90%]  mx-auto">
+    <div *ngFor="let payment of payments" class="flex shadow-sm gap-4 mb-4 bg-white">
+        <div class="py-4  w-full">
+            <p class="bg-yellow-100 px-4 py-2 w-[260px] block rounded-full mb-2 font-bold	max-w-max tracking-wide	">
+                {{ payment.created | date}}</p>
+            <h1 class="text-2xl capitalize font-medium text-gray-700">{{payment.status}}</h1>
+            <div class="py-4 w-full max-w-[15%] text-center h-full my-auto py-auto ">
+                <h2 class="text-3xl mt-4 font-black text-blue-500">${{payment.amount_total / 100}}</h2>
+            </div>
+        </div>
+    </div>
+</div>
