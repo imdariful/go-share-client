@@ -4,12 +4,13 @@ import { Prices, Trucks } from '../config/track.alg';
 import { CargoItem, Truck } from '../interfaces/truck';
 import axios from 'axios';
 import { CloudSvgComponent } from '../cloud-svg/cloud-svg.component';
+import { apiUrl } from './api.constant';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectService {
-  url = 'http://localhost:3001/projects/'
+  url = `${apiUrl}projects/`
   config = { withCredentials: true }
   constructor(private http: HttpClient) { }
 

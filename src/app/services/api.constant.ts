@@ -1,0 +1,1 @@
+export const apiUrl = 'https://encouraging-greyhound.cyclic.app/'

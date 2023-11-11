@@ -4,13 +4,14 @@ import axios from 'axios';
 import { CookieService } from 'ngx-cookie';
 import { Auth, Profile } from '../interfaces/auth';
 import { Observable, Subject } from 'rxjs';
+import { apiUrl } from './api.constant';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  url = 'http://localhost:3001/auth/'
+  url = `${apiUrl}auth/`
   config = { withCredentials: true }
   private user: Subject<any> = new Subject<any>();
 
