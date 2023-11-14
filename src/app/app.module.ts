@@ -34,6 +34,7 @@ import { PaymentsComponent } from './pages/payments/payments.component';
 import { DatePipe } from './pipes/date.pipe';
 import { MathFloorPipe } from './pipes/math-floor.pipe';
 import { ProjectDetailsComponent } from './components/project-details/project-details.component';
+import { HotToastModule } from '@ngneat/hot-toast';
 
 
 @NgModule({
@@ -75,7 +76,8 @@ import { ProjectDetailsComponent } from './components/project-details/project-de
     ReactiveFormsModule,
     BrowserAnimationsModule,
     CookieModule.withOptions(),
-    HttpClientModule
+    HttpClientModule,
+    HotToastModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
