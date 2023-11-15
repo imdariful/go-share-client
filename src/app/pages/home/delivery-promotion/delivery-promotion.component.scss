@@ -15,11 +15,8 @@
       font-weight: 500;
       color: #777;
     }
-
-   
   }
 }
-
 
 .promotion_bg {
   background: url("/assets/images/body_bg.png");
@@ -29,7 +26,7 @@
   height: 90vh;
   width: 100%;
   display: flex;
-  align-items: end;
+  align-items: flex-end; // !problem
 
   div {
     text-align: left;
@@ -50,7 +47,6 @@
     }
   }
 }
-
 
 .how_it_work {
   margin-top: 60px;
@@ -82,11 +78,11 @@
           h2 {
             font-size: 1.8rem;
             font-weight: 500;
-            color: #DB4027;
+            color: #db4027;
           }
 
           p {
-            font-size: 1.30rem;
+            font-size: 1.3rem;
             font-weight: 400;
             color: #555;
             margin-top: 8px;
@@ -100,11 +96,8 @@
         }
       }
     }
-
   }
 }
-
-
 
 .choose_goshare {
   margin-top: 60px;
@@ -119,15 +112,14 @@
       letter-spacing: 4px;
     }
     p {
-        font-size: 2rem;
-        font-weight: 600;
-        color: #777;
-      }
+      font-size: 2rem;
+      font-weight: 600;
+      color: #777;
+    }
   }
 }
 
-
-.choose_items{
+.choose_items {
   display: flex;
   flex-wrap: wrap;
   grid-gap: 100px;

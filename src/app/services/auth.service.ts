@@ -7,47 +7,49 @@ import { Observable, Subject } from 'rxjs';
 import { apiUrl } from './api.constant';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
-  url = `${apiUrl}auth/`
-  config = { withCredentials: true }
+  url = `${apiUrl}auth/`;
+  config = { withCredentials: true };
   private user: Subject<any> = new Subject<any>();
 
-  constructor(private cookieService: CookieService, private router: Router) { }
+  constructor(private cookieService: CookieService, private router: Router) {}
 
   signUp = async (userData: any): Promise<Auth> => {
     try {
       const res = await axios.post(`${this.url}signup`, userData, this.config);
       return res.data;
     } catch (error: any) {
-      return error;
+      console.error(error);
+      throw new Error(error?.response?.data?.message);
     }
-  }
+  };
 
   signIn = async (userData: any): Promise<Auth> => {
     try {
       const res = await axios.post(`${this.url}signin`, userData, this.config);
       return res.data;
     } catch (error: any) {
-      return error;
+      console.error(error);
+      throw new Error(error?.response?.data?.message);
     }
-  }
+  };
 
   signOut = (): void => {
-    this.cookieService.remove("token");
+    this.cookieService.remove('token');
     window.location.reload();
-  }
+  };
 
   profile = async (): Promise<Profile> => {
     try {
       const res = await axios.get(`${this.url}profile`, this.config);
       return res.data;
     } catch (error: any) {
-      return error;
+      console.error(error);
+      throw new Error(error?.response?.data?.message);
     }
-  }
+  };
 
   getDriver = async (id: string): Promise<Profile> => {
     try {
@@ -55,14 +57,12 @@ export class AuthService {
       // console.log(res)
       return res.data;
     } catch (error: any) {
-      return error;
+      console.error(error);
+      throw new Error(error?.response?.data?.message);
     }
-  }
+  };
 
   getProfile(): Observable<any> {
     return this.user.asObservable();
   }
-
-
-
 }

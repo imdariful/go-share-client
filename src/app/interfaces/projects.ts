@@ -1,49 +1,49 @@
 interface CargoItem {
-    des: string;
-    extra: boolean;
-    height: number;
-    lenght: number;
-    pis: number;
-    title: string;
-    weight: number;
-    width: number;
+  des: string;
+  extra: boolean;
+  height: number;
+  lenght: number;
+  pis: number;
+  title: string;
+  weight: number;
+  width: number;
 }
 
-interface Bids{
-    price: number,
-    driverId: string
+interface Bids {
+  price: number;
+  driverId: string;
 }
 
 export interface Project {
-    projectId: string;
-    userId: string;
-    userEmail: string;
-    UserName: string;
-    time: string;
-    date: string;
-    distance: number;
-    duration: number;
-    startLocation: string;
-    endLocation: string;
-    totalCost: number;
-    truckCost: number;
-    helperCost: number;
-    extraCost: number,
-    startCoordinates: [number, number];
-    endCoordinates: [number, number];
-    cargoItems: CargoItem[];
-    bids: Bids[];
-    vehcle: {
-        id: number;
-        dis: string;
-        height: number;
-        helper: boolean;
-        img: string;
-        length: number;
-        name: string;
-        title: string;
-        totalWeight: number;
-        weight: number;
-        width: number;
-    }
+  projectId: string;
+  userId: string;
+  userEmail: string;
+  UserName: string;
+  time: string;
+  date: string;
+  distance: number;
+  duration: number;
+  startLocation: string;
+  endLocation: string;
+  totalCost: number;
+  truckCost: number;
+  helperCost: number;
+  extraCost: number;
+  startCoordinates: [number, number];
+  endCoordinates: [number, number];
+  cargoItems: CargoItem[];
+  bids: Bids[];
+  vehcle: {
+    id: number;
+    dis: string;
+    height: number;
+    helper: boolean;
+    img: string;
+    length: number;
+    name: string;
+    title: string;
+    totalWeight: number;
+    weight: number;
+    width: number;
+  };
 }

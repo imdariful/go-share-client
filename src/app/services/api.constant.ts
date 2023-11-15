@@ -1,1 +1,1 @@
-export const apiUrl = 'https://encouraging-greyhound.cyclic.app/'
+export const apiUrl = 'http://localhost:3000/'
