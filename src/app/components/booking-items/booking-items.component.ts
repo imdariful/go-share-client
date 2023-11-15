@@ -5,29 +5,24 @@ import { SessionService } from 'src/app/services/session.service';
 import { CargoItem } from 'src/app/interfaces/truck';
 import { genRandonString, getRandom } from 'src/app/utlt/utl';
 
-
-
 @Component({
   selector: 'app-booking-items',
   templateUrl: './booking-items.component.html',
-  styleUrls: ['./booking-items.component.scss']
+  styleUrls: ['./booking-items.component.scss'],
 })
 export class BookingItemsComponent {
-
   @Output() goNext = new EventEmitter<boolean>();
 
   cargoItems: CargoItem[] = [];
   cargoItemName!: string;
   cargoItemsSuggetions: CargoItem[] = [];
 
-
   constructor(private location: Location, private session: SessionService) {}
 
-
-  ngOnInit(){
+  ngOnInit() {
     const data = this.session.getItem();
     if (data && data.cargoItems) {
-      this.cargoItems = data.cargoItems
+      this.cargoItems = data.cargoItems;
     }
   }
 
@@ -37,33 +32,37 @@ export class BookingItemsComponent {
   }
 
   searchCargoItem() {
-    this.cargoItemsSuggetions = cargoItems.filter(item => item.title.toLowerCase().includes(this.cargoItemName.toLowerCase()))
+    this.cargoItemsSuggetions = cargoItems.filter((item) =>
+      item.title.toLowerCase().includes(this.cargoItemName.toLowerCase())
+    );
   }
   removeCargoItem(title: string) {
-    this.cargoItems = this.cargoItems.filter(item => item.title !== title);
+    this.cargoItems = this.cargoItems.filter((item) => item.title !== title);
   }
 
   quantityChange(i: number, q: number) {
-      this.cargoItems[i].pis += q;
+    this.cargoItems[i].pis += q;
   }
   onSubmit() {
-    const newItem = cargoItems.find(item => item.title.toLowerCase().includes(this.cargoItemName.toLowerCase()))
-    if(newItem) {
+    const newItem = cargoItems.find((item) =>
+      item.title.toLowerCase().includes(this.cargoItemName.toLowerCase())
+    );
+    if (newItem) {
       this.cargoItems.push(newItem);
-    }else{
+    } else {
       const ran = getRandom(10);
       this.cargoItems.push({
         title: this.cargoItemName,
         des: genRandonString(getRandom(30)),
         weight: getRandom(40),
         height: getRandom(30),
-         lenght: getRandom(100),
-         width: getRandom(60),
+        lenght: getRandom(100),
+        width: getRandom(60),
         pis: 1,
-        extra: ran == 3 || ran == 5 || ran == 7
-      })
+        extra: ran == 3 || ran == 5 || ran == 7,
+      });
     }
-    this.cargoItemName = "";
+    this.cargoItemName = '';
   }
 
   goBack() {
@@ -71,9 +70,7 @@ export class BookingItemsComponent {
   }
 
   setCargoValue() {
-    this.session.setItem({cargoItems: this.cargoItems});
-    this.goNext.emit(true)
+    this.session.setItem({ cargoItems: this.cargoItems });
+    this.goNext.emit(true);
   }
-
 }
-      
