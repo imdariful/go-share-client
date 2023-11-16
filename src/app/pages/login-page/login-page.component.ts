@@ -1,4 +1,3 @@
-import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -23,7 +22,6 @@ export class LoginPageComponent {
     private fb: FormBuilder,
     private auth: AuthService,
     private router: Router,
-    private location: Location,
     private toast: HotToastService
   ) {
     this.registrationForm = this.fb.group({
@@ -45,7 +43,7 @@ export class LoginPageComponent {
       const userData = this.registrationForm.value;
       const res = await this.auth.signIn(userData);
       this.registrationForm.reset();
-      this.location.historyGo(-1);
+      this.router.navigate(['/dashboard/profile']);
       this.toast.success('Sign in successful', getToastSuccessMessage());
     } catch (error: any) {
       this.toast.error(
