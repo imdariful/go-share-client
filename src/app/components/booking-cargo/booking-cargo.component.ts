@@ -58,7 +58,6 @@ export class BookingCargoComponent {
     if (data.distance && data.cargoItems) {
       this.cars = this.project.getPrice(data.distance);
       this.totalWeight = this.project.getTotalWeight(data.cargoItems);
-      console.log(this.totalWeight);
     }
   }
 

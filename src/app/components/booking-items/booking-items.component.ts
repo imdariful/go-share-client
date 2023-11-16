@@ -36,6 +36,7 @@ export class BookingItemsComponent {
       item.title.toLowerCase().includes(this.cargoItemName.toLowerCase())
     );
   }
+
   removeCargoItem(title: string) {
     this.cargoItems = this.cargoItems.filter((item) => item.title !== title);
   }
@@ -43,26 +44,34 @@ export class BookingItemsComponent {
   quantityChange(i: number, q: number) {
     this.cargoItems[i].pis += q;
   }
+
   onSubmit() {
-    const newItem = cargoItems.find((item) =>
+    const existingItem = cargoItems.find((item) =>
       item.title.toLowerCase().includes(this.cargoItemName.toLowerCase())
     );
-    if (newItem) {
-      this.cargoItems.push(newItem);
+
+    if (existingItem) {
+      this.cargoItems.push(existingItem);
     } else {
-      const ran = getRandom(10);
-      this.cargoItems.push({
-        title: this.cargoItemName,
-        des: genRandonString(getRandom(30)),
-        weight: getRandom(40),
-        height: getRandom(30),
-        lenght: getRandom(100),
-        width: getRandom(60),
-        pis: 1,
-        extra: ran == 3 || ran == 5 || ran == 7,
-      });
+      const newItem = this.createNewCargoItem(this.cargoItemName);
+      this.cargoItems.push(newItem);
     }
+    console.log(this.cargoItems, 'new')
     this.cargoItemName = '';
+  }
+
+  createNewCargoItem(title: string): CargoItem {
+    const ran = getRandom(10);
+    return {
+      title: title,
+      des: genRandonString(getRandom(30)),
+      weight: getRandom(40),
+      height: getRandom(30),
+      lenght: getRandom(100),
+      width: getRandom(60),
+      pis: 1,
+      extra: ran == 3 || ran == 5 || ran == 7,
+    };
   }
 
   goBack() {

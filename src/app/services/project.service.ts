@@ -44,35 +44,44 @@ export class ProjectService {
     let trucks: Truck[] = [];
 
     for (const truck of Trucks) {
-      const weightTon = truck.weight / 1000;
-      const originalPrice =
-        ((truck.height + truck.width + truck.length) * weightTon) / 2;
-
-      for (const p of Prices) {
-        if (p.from > 1000) {
-          if (truck.id === 4 && truck.costPerKm) {
-            const price = (truck.costPerKm / 100) * (100 - p.price);
-            truck.cost = Math.round(price * (distance / 1000));
-          } else {
-            const price = (originalPrice / 100) * (100 - p.price);
-            truck.cost = Math.round(price * (distance / 1000));
-          }
-          break;
-        } else if (p.to && p.to >= distance / 1000) {
-          if (truck.id === 4 && truck.costPerKm) {
-            const price = (truck.costPerKm / 100) * (100 - p.price);
-            truck.cost = Math.round(price * (distance / 1000));
-          } else {
-            const price = (originalPrice / 100) * (100 - p.price);
-            truck.cost = Math.round(price * (distance / 1000));
-          }
-          break;
-        }
-      }
+      const originalPrice = this.calculateOriginalPrice(truck);
+      const finalPrice = this.calculateFinalPrice(
+        truck,
+        distance,
+        originalPrice
+      );
+      truck.cost = finalPrice;
       trucks.push(truck);
     }
 
     return trucks;
+  }
+
+  calculateOriginalPrice(truck: Truck): number {
+    const weightTon = truck.weight / 1000;
+    return ((truck.height + truck.width + truck.length) * weightTon) / 2;
+  }
+
+  calculateFinalPrice(
+    truck: Truck,
+    distance: number,
+    originalPrice: number
+  ): number {
+    for (const p of Prices) {
+      if (p.from > 1000 || (p.to && p.to >= distance / 1000)) {
+        const discountMultiplier = (100 - p.price) / 100;
+        if (truck.id === 4 && truck.costPerKm) {
+          return Math.round(
+            truck.costPerKm * discountMultiplier * (distance / 1000)
+          );
+        } else {
+          return Math.round(
+            originalPrice * discountMultiplier * (distance / 1000)
+          );
+        }
+      }
+    }
+    return 0;
   }
 
   getTotalWeight(items: CargoItem[]): number {
