@@ -101,37 +101,46 @@ export class BookingLocationComponent {
     this.endLocation = e.placeName
     this.onEndHide = false
   }
-  onSubmit() {
-    if (this.startLocation && this.endLocation && this.time && this.date) {
-      if (this.startLocation.includes("Bangladesh") && this.endLocation.includes("Bangladesh")) {
-        this.locationService.getDistance(this.startCoordinates, this.endCoordinates).subscribe((source: any) => {
-          const { duration, distance } = source.routes[0];
-          if (duration && distance >= 3000) {
-            const data = {
-              startCoordinates: this.startCoordinates,
-              startLocation: this.startLocation,
-              endCoordinates: this.endCoordinates,
-              endLocation: this.endLocation,
-              time: this.time,
-              date: this.date,
-              duration,
-              distance,
-            }
-            // this.setLocation.emit(true)
-            this.goNext.emit(true)
-            this.session.setItem(data)
-          } else {
-            this.error = "Distance must be greater than 3km";
-          }
-        });
-      } else {
-        this.error = "Both locations must be in Bangladesh";
-      }
-    } else {
-      this.error = "Please fill all the fields";
-    }
+  createDataObject(duration :string, distance : number): any {
+    return {
+      startCoordinates: this.startCoordinates,
+      startLocation: this.startLocation,
+      endCoordinates: this.endCoordinates,
+      endLocation: this.endLocation,
+      time: this.time,
+      date: this.date,
+      duration,
+      distance
+    };
   }
 
-
-
+  onSubmit() {
+    if (this.startLocation && this.endLocation && this.time && this.date) {
+      if (
+        this.startLocation.includes('Bangladesh') &&
+        this.endLocation.includes('Bangladesh')
+      ) {
+        this.locationService
+          .getDistance(this.startCoordinates, this.endCoordinates)
+          .subscribe((source: any) => {
+            const { duration, distance } = source.routes[0];
+            if (duration && distance >= 3000) {
+              const data = this.createDataObject(duration, distance);
+              // this.setLocation.emit(true)
+              this.goNext.emit(true);
+              this.session.setItem(data);
+            } else {
+              this.error = 'Distance must be greater than 3km';
+              console.log(this.error);
+            }
+          });
+      } else {
+        this.error = 'Both locations must be in Bangladesh';
+        console.log(this.error)
+      }
+    } else {
+      this.error = 'Please fill all the fields';
+      console.log(this.error)
+    }
+  }
 }
