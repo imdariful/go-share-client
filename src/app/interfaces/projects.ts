@@ -1,3 +1,5 @@
+import { User } from "./auth";
+
 interface CargoItem {
   des: string;
   extra: boolean;
@@ -47,3 +49,9 @@ export interface Project {
     width: number;
   };
 }
+
+export interface Projects  {
+  user: User,
+  sendProject: string,
+  projects: string,
+};
