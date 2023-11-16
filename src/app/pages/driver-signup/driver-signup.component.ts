@@ -8,6 +8,11 @@ import {
   getToastSuccessMessage,
 } from 'src/app/utlt/toaster';
 
+interface FormControlConfig {
+  name: string;
+  validators: any[];
+}
+
 @Component({
   selector: 'app-driver-signup',
   templateUrl: './driver-signup.component.html',
@@ -15,8 +20,23 @@ import {
 })
 export class DriverSignupComponent {
   error: string | undefined;
+  registrationForm!: FormGroup;
 
-  registrationForm: FormGroup;
+  formControlConfigs: FormControlConfig[] = [
+    { name: 'name', validators: [Validators.required] },
+    { name: 'email', validators: [Validators.required, Validators.email] },
+    {
+      name: 'password',
+      validators: [Validators.required, Validators.minLength(6)],
+    },
+    { name: 'nid', validators: [Validators.required, Validators.minLength(8)] },
+    { name: 'dl', validators: [Validators.required, Validators.minLength(6)] },
+    {
+      name: 'birth',
+      validators: [Validators.required, Validators.minLength(6)],
+    },
+    { name: 'exp', validators: [Validators.required, Validators.minLength(6)] },
+  ];
 
   constructor(
     private fb: FormBuilder,
@@ -24,26 +44,29 @@ export class DriverSignupComponent {
     private router: Router,
     private toast: HotToastService
   ) {
-    this.registrationForm = this.fb.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      nid: ['', [Validators.required, Validators.minLength(8)]],
-      dl: ['', [Validators.required, Validators.minLength(6)]],
-      birth: ['', [Validators.required, Validators.minLength(6)]],
-      exp: ['', [Validators.required, Validators.minLength(6)]],
+    this.initializeForm();
+  }
+
+  initializeForm() {
+    let formControls: Record<string, any> = {};
+    this.formControlConfigs.forEach((config) => {
+      formControls[config.name] = ['', config.validators];
     });
+    this.registrationForm = this.fb.group(formControls);
+  }
+
+  isValidForm() {
+    return this.registrationForm.valid;
   }
 
   async getUserData() {
     try {
-      if (this.registrationForm.valid) {
+      if (this.isValidForm()) {
         const userData = this.registrationForm.value;
         userData.type = 2;
         const res = await this.auth.signUp(userData);
 
         if (res.token) {
-          console.log('iddd', res.token);
           this.registrationForm.reset();
           this.toast.success(
             'Driver account created successfully',
@@ -57,7 +80,6 @@ export class DriverSignupComponent {
         `Driver account creation failed - ${error.message}}`,
         getToastErrorMessage()
       );
-      console.error(error);
       this.error = error.message;
     }
   }
