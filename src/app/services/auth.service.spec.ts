@@ -31,4 +31,20 @@ describe('AuthService', () => {
       service.config
     );
   });
+
+  it('should sign in a user', async () => {
+    const userData = { username: 'test', password: 'test' };
+    const response = { data: { token: 'test-token' } };
+
+    (axios.post as jest.Mock).mockResolvedValue(response);
+
+    const result = await service.signIn(userData);
+
+    expect(result).toEqual(response.data);
+    expect(axios.post).toHaveBeenCalledWith(
+      `${service.url}signin`,
+      userData,
+      service.config
+    );
+  });
 });
