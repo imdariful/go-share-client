@@ -4,7 +4,7 @@ interface CargoItem {
   des: string;
   extra: boolean;
   height: number;
-  lenght: number;
+  length: number;
   pis: number;
   title: string;
   weight: number;
