@@ -45,6 +45,8 @@ export class ProjectService {
 
     for (const truck of Trucks) {
       const originalPrice = this.calculateOriginalPrice(truck);
+      console.log(originalPrice, 'originalPrice')
+      console.log(truck, 'truck')
       const finalPrice = this.calculateFinalPrice(
         truck,
         distance,
@@ -57,10 +59,14 @@ export class ProjectService {
     return trucks;
   }
 
-  calculateOriginalPrice(truck: Truck): number {
-    const weightTon = truck.weight / 1000;
-    return ((truck.height + truck.width + truck.length) * weightTon) / 2;
+calculateOriginalPrice(truck: Truck): number {
+  if (truck.height < 0 || truck.width < 0 || truck.length < 0 || truck.weight < 0) {
+    throw new Error('Truck dimensions and weight must be non-negative');
   }
+
+  const weightTon = truck.weight / 1000;
+  return ((truck.height + truck.width + truck.length) * weightTon) / 2;
+}
 
   calculateFinalPrice(
     truck: Truck,
