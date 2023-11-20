@@ -56,7 +56,6 @@ export class BookingItemsComponent {
       const newItem = this.createNewCargoItem(this.cargoItemName);
       this.cargoItems.push(newItem);
     }
-    console.log(this.cargoItems, 'new')
     this.cargoItemName = '';
   }
 
