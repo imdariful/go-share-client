@@ -35,13 +35,13 @@ export class BookingReviewComponent {
   ) {}
   ngOnInit(): void {
     this.bookingsData = this.session.getItem();
-    this.truckCost = this.bookingsData.vehcle.cost * 1;
-    this.helperCost = this.bookingsData.vehcle.helper
-      ? this.bookingsData.vehcle.helper * 1
+    this.truckCost = this.bookingsData.vehicle.cost * 1;
+    this.helperCost = this.bookingsData.vehicle.helper
+      ? this.bookingsData.vehicle.helper * 1
       : 0;
     this.extraCost = this.getExtraCost(
       this.bookingsData.cargoItems,
-      this.bookingsData.vehcle.cost
+      this.bookingsData.vehicle.cost
     );
     this.totalCost = this.truckCost + this.helperCost + this.extraCost;
   }
