@@ -6,19 +6,19 @@ export interface Truck {
   length: number;
   weight: number;
   costPerKm?: number;
-  img?: string; 
-  title?: string; 
-  dis?: string; 
-  cost: number
+  img?: string;
+  title?: string;
+  dis?: string;
+  cost: number;
 }
 
 export interface CargoItem {
-  title: string
-  des: string
-  weight:number
-  height: number
-  lenght: number
-  width: number
-  pis:number
-  extra: boolean
+  title: string;
+  des: string;
+  weight: number;
+  height: number;
+  length: number;
+  width: number;
+  pis: number;
+  extra: boolean;
 }
