@@ -45,8 +45,8 @@ export class ProjectService {
 
     for (const truck of Trucks) {
       const originalPrice = this.calculateOriginalPrice(truck);
-      console.log(originalPrice, 'originalPrice')
-      console.log(truck, 'truck')
+      console.log(originalPrice, 'originalPrice');
+      console.log(truck, 'truck');
       const finalPrice = this.calculateFinalPrice(
         truck,
         distance,
@@ -59,20 +59,28 @@ export class ProjectService {
     return trucks;
   }
 
-calculateOriginalPrice(truck: Truck): number {
-  if (truck.height < 0 || truck.width < 0 || truck.length < 0 || truck.weight < 0) {
-    throw new Error('Truck dimensions and weight must be non-negative');
-  }
+  calculateOriginalPrice(truck: Truck): number {
+    if (
+      truck.height < 0 ||
+      truck.width < 0 ||
+      truck.length < 0 ||
+      truck.weight < 0
+    ) {
+      throw new Error('Truck dimensions and weight must be non-negative');
+    }
 
-  const weightTon = truck.weight / 1000;
-  return ((truck.height + truck.width + truck.length) * weightTon) / 2;
-}
+    const weightTon = truck.weight / 1000;
+    return ((truck.height + truck.width + truck.length) * weightTon) / 2;
+  }
 
   calculateFinalPrice(
     truck: Truck,
     distance: number,
     originalPrice: number
   ): number {
+    if (distance < 0) {
+      throw new Error('Distance must be non-negative');
+    }
     for (const p of Prices) {
       if (p.from > 1000 || (p.to && p.to >= distance / 1000)) {
         const discountMultiplier = (100 - p.price) / 100;
