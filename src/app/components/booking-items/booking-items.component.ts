@@ -56,7 +56,6 @@ export class BookingItemsComponent {
       const newItem = this.createNewCargoItem(this.cargoItemName);
       this.cargoItems.push(newItem);
     }
-    console.log(this.cargoItems, 'new')
     this.cargoItemName = '';
   }
 
@@ -65,7 +64,7 @@ export class BookingItemsComponent {
     return {
       title: title,
       des: genRandonString(getRandom(30)),
-      weight: getRandom(40),
+      weight: 0,
       height: getRandom(30),
       lenght: getRandom(100),
       width: getRandom(60),

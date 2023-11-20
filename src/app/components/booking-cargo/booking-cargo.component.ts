@@ -42,18 +42,22 @@ export class BookingCargoComponent {
   }
 
   setVehicle() {
-    const vehcle = this.cars.find((car) => car.id === this.selectId);
+    const vehicle = this.cars.find((car) => car.id === this.selectId);
     this.session.setItem({
-      vehcle: { helper: this.helper, totalWeight: this.totalWeight, ...vehcle },
+      vehicle: {
+        helper: this.helper,
+        totalWeight: this.totalWeight,
+        ...vehicle,
+      },
     });
     this.goNext.emit(true);
   }
 
   ngOnInit() {
     const data = this.session.getItem();
-    if (data && data.vehcle) {
-      this.selectId = data.vehcle.id;
-      this.helper = data.vehcle.helper;
+    if (data && data.vehicle) {
+      this.selectId = data.vehicle.id;
+      this.helper = data.vehicle.helper;
     }
     if (data.distance && data.cargoItems) {
       this.cars = this.project.getPrice(data.distance);

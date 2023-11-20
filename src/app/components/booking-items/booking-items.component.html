@@ -37,6 +37,7 @@
                     </svg>
 
                 </span>
+                
             </div>
             <p class="text-base">{{cargoItem.des}}</p>
             <div class="flex items-center gap-4 mt-2 ms-6">
@@ -71,6 +72,10 @@
 
                     </span>
                 </h3>
+                <h3>Weight -</h3>
+                <input [(ngModel)]="cargoItems[i].weight" type="number" name="weight{{i}}"
+                class="w-[60px] text-center border border-gray-300 rounded p-1"
+                placeholder="Weight" />
             </div>
         </div>
     </div>
@@ -107,6 +112,6 @@
             class="text-blue-700 border border-gray-300 hover:bg-blue-100 hover:text-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-md p-4 px-10 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Back</button>
         <button
         (click)="setCargoValue()"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-md p-4 px-10 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Countinue</button>
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-md p-4 px-10 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Continue</button>
     </div>
 </div>
