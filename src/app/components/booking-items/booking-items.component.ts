@@ -3,7 +3,7 @@ import { cargoItems } from './../../config/cargoItem';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { SessionService } from 'src/app/services/session.service';
 import { CargoItem } from 'src/app/interfaces/truck';
-import { genRandonString, getRandom } from 'src/app/utlt/utl';
+import { genRandomString, getRandom } from 'src/app/utlt/utl';
 
 @Component({
   selector: 'app-booking-items',
@@ -15,7 +15,7 @@ export class BookingItemsComponent {
 
   cargoItems: CargoItem[] = [];
   cargoItemName!: string;
-  cargoItemsSuggetions: CargoItem[] = [];
+  cargoItemsSuggestions: CargoItem[] = [];
 
   constructor(private location: Location, private session: SessionService) {}
 
@@ -28,11 +28,11 @@ export class BookingItemsComponent {
 
   setCargoItem(cargoItem: CargoItem) {
     this.cargoItemName = cargoItem.title;
-    this.cargoItemsSuggetions = [];
+    this.cargoItemsSuggestions = [];
   }
 
   searchCargoItem() {
-    this.cargoItemsSuggetions = cargoItems.filter((item) =>
+    this.cargoItemsSuggestions = cargoItems.filter((item) =>
       item.title.toLowerCase().includes(this.cargoItemName.toLowerCase())
     );
   }
@@ -56,7 +56,6 @@ export class BookingItemsComponent {
       const newItem = this.createNewCargoItem(this.cargoItemName);
       this.cargoItems.push(newItem);
     }
-    console.log(this.cargoItems, 'new')
     this.cargoItemName = '';
   }
 
@@ -67,7 +66,7 @@ export class BookingItemsComponent {
       des: genRandonString(getRandom(30)),
       weight: 0,
       height: getRandom(30),
-      lenght: getRandom(100),
+      length: getRandom(100),
       width: getRandom(60),
       pis: 1,
       extra: ran == 3 || ran == 5 || ran == 7,

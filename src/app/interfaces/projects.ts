@@ -1,10 +1,10 @@
-import { User } from "./auth";
+import { User } from './auth';
 
 interface CargoItem {
   des: string;
   extra: boolean;
   height: number;
-  lenght: number;
+  length: number;
   pis: number;
   title: string;
   weight: number;
@@ -35,7 +35,7 @@ export interface Project {
   endCoordinates: [number, number];
   cargoItems: CargoItem[];
   bids: Bids[];
-  vehcle: {
+  vehicle: {
     id: number;
     dis: string;
     height: number;
@@ -50,8 +50,8 @@ export interface Project {
   };
 }
 
-export interface Projects  {
-  user: User,
-  sendProject: string,
-  projects: string,
-};
+export interface Projects {
+  user: User;
+  sendProject: string;
+  projects: string;
+}
