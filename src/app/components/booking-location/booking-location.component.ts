@@ -13,6 +13,8 @@ export class BookingLocationComponent {
   @Output() goNext = new EventEmitter<boolean>();
 
   // time and date variables
+  minTime!: string;
+  minDate!: string;
   time!: string;
   date!: string;
 
@@ -43,6 +45,7 @@ export class BookingLocationComponent {
       this.endLocation = data.placeName;
       this.onEndHide = false
     })
+    this.setMinDateTime();
   }
 
   ngOnInit() {
@@ -68,6 +71,12 @@ export class BookingLocationComponent {
     this.focus = map
   }
 
+  setMinDateTime() {
+    const currentDate = new Date();
+    this.minDate = currentDate.toISOString().split('T')[0];
+    this.minTime = currentDate.toTimeString().split(' ')[0].substring(0, 5);
+  }
+  
 
   setLocationsuggestions(place: any) {
     this.locationService.getSuggestions(place).subscribe((data: any) => {

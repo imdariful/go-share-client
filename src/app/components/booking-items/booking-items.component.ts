@@ -41,10 +41,6 @@ export class BookingItemsComponent {
     this.cargoItems = this.cargoItems.filter((item) => item.title !== title);
   }
 
-  quantityChange(i: number, q: number) {
-    this.cargoItems[i].pis += q;
-  }
-
   onSubmit() {
     const existingItem = cargoItems.find((item) =>
       item.title.toLowerCase().includes(this.cargoItemName.toLowerCase())
@@ -65,7 +61,7 @@ export class BookingItemsComponent {
     return {
       title: title,
       des: genRandonString(getRandom(30)),
-      weight: getRandom(40),
+      weight: 0,
       height: getRandom(30),
       lenght: getRandom(100),
       width: getRandom(60),
