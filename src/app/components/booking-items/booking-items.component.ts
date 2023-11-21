@@ -65,7 +65,7 @@ export class BookingItemsComponent {
     return {
       title: title,
       des: genRandonString(getRandom(30)),
-      weight: getRandom(40),
+      weight: 0,
       height: getRandom(30),
       lenght: getRandom(100),
       width: getRandom(60),
