@@ -1,4 +1,11 @@
-.dashboard{
-    display: grid;
-    grid-template-columns: 2fr 6fr;
+.dashboard {
+  display: grid;
+  grid-template-columns: 2fr 6fr;
+}
+
+.coin-image {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin-right: 5px;
 }

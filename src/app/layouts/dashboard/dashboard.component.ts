@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/interfaces/auth';
 import { AuthService } from 'src/app/services/auth.service';
 import { RouteService } from 'src/app/services/route.service';
+import { WalletService } from 'src/app/services/wallet.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,14 +18,20 @@ export class DashboardComponent implements OnInit {
   routerEventsSubscription: any;
   actRoute: string = 'project';
   avatarUrl!: any;
+  balance!: string;
 
   constructor(
     private auth: AuthService,
     private activeRoute: RouteService,
     private cdRef: ChangeDetectorRef,
     private location: Location,
-    private sanitizer: DomSanitizer
-  ) {}
+    private sanitizer: DomSanitizer,
+    private walletService: WalletService
+  ) {
+    this.walletService.currentBalance.subscribe(
+      (balance) => (this.balance = balance)
+    );
+  }
 
   ngOnInit() {
     this.getUser();

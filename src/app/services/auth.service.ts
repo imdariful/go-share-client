@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import axios from 'axios';
 import { CookieService } from 'ngx-cookie';
-import { Auth, Profile } from '../interfaces/auth';
+import { Auth, Profile, Wallet } from '../interfaces/auth';
 import { Observable, Subject } from 'rxjs';
 import { apiUrl } from './api.constant';
 import { HttpClient } from '@angular/common/http';
@@ -76,5 +76,15 @@ export class AuthService {
       `https://api.multiavatar.com/${username}.png?apikey=xb1XMOaZcgNPsW`,
       { responseType: 'blob' }
     );
+  };
+
+  getWallet = async (id: string): Promise<Wallet> => {
+    try {
+      const res = await axios.get(`${apiUrl}wallet/${id}`, this.config);
+      return res.data;
+    } catch (error: any) {
+      console.error(error);
+      throw new Error(error?.response?.data?.message);
+    }
   };
 }
