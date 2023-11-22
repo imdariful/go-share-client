@@ -5,6 +5,7 @@ import { CookieService } from 'ngx-cookie';
 import { Auth, Profile } from '../interfaces/auth';
 import { Observable, Subject } from 'rxjs';
 import { apiUrl } from './api.constant';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,11 @@ export class AuthService {
   config = { withCredentials: true };
   private user: Subject<any> = new Subject<any>();
 
-  constructor(private cookieService: CookieService, private router: Router) {}
+  constructor(
+    private cookieService: CookieService,
+    private router: Router,
+    private http: HttpClient
+  ) {}
 
   signUp = async (userData: any): Promise<Auth> => {
     try {
@@ -65,4 +70,11 @@ export class AuthService {
   getProfile(): Observable<any> {
     return this.user.asObservable();
   }
+
+  getAvatar = (username: string): Observable<any> => {
+    return this.http.get(
+      `https://api.multiavatar.com/${username}.png?apikey=xb1XMOaZcgNPsW`,
+      { responseType: 'blob' }
+    );
+  };
 }
