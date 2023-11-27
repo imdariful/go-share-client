@@ -1,86 +1,152 @@
-<div *ngIf="actRoute !== 'myprojects'" class="w-full max-w-[90%]  mx-auto">
-    <div *ngFor="let project of projects; let i = index" class="flex shadow-sm gap-4 mb-4 bg-white">
-        <div class="max-w-[20%]">
-            <img class="w-full" [src]="'assets/images/' + project.vehcle.img" alt="">
-        </div>
-        <div class="py-4  w-full">
-            <div class="flex gap-4 ">
-                <p [ngClass]="{'bg-green-300': project.status == 'closed'}"
-                    class="bg-yellow-100 px-4 py-2 w-[260px] block rounded-full mb-2 font-bold	max-w-max tracking-wide	">
-                    {{project.time}}, {{ project.date}}</p>
-                <p *ngIf="project.userBack" class="text-pink-600 capitalize text-2xl font-medium">🎉you saved
-                    ${{project.userBack | mathFloor}}🎉
-                </p>
-            </div>
-            <h1 class="text-2xl capitalize font-medium text-gray-700">{{project.vehcle.title}}</h1>
-            <p class=" text-gray-500">From: {{project.startLocation}}</p>
-            <p class=" text-gray-500">To: {{project.endLocation}}</p>
-            <p *ngIf="user.type != 2" class=" text-gray-900 text-2xl mt-2">Assigned To:
-                {{project.driverId?project.driverName:'Looking
-                For Driver'}}</p>
-
-        </div>
-        <div class="py-4 w-full max-w-[15%] text-center h-full my-auto py-auto ">
-            <h2 class="text-2xl">{{getDistanceKm(project.distance)}}km</h2>
-            <h2 *ngIf="user.type != 2" class="text-3xl mt-4 font-black text-blue-500">${{project.totalCost | mathFloor}}
-            </h2>
-            <h2 *ngIf="user.type == 2" class="text-3xl mt-4  font-black text-blue-500">
-                Lowest Bid ${{project.bids[project.bids.length -1].price | mathFloor}}</h2>
-            <button *ngIf="user.type == 2" (click)="bidModal(1)"
-                class="capitalize text-2xl px-8 py-[4px] cursor-pointer border-2 mt-4 hover:bg-blue-300">bid</button>
-        </div>
-
-        <div *ngIf="modal"
-            class="absolute top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto h-screen bg-[#00000030] w-full flex justify-center pt-20">
-            <div class="w-full max-w-[50%]">
-                <div class="shadow-xl p-4 bg-white ">
-                    <h3 class="text-xl font-semibold text-gray-900 ">
-                        Add your offer price
-                    </h3>
-                    <div class="relative mt-4 w-full mb-6 group">
-                        <input type="number" [(ngModel)]="offerPrice"
-                            (input)="checkOffer(project.bids[project.bids.length -1].price)"
-                            [ngClass]="{'text-red-600 border-red-600 focus:border-red-600': error}"
-                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                            placeholder=" " required />
-                        <label for="exp" [ngClass]="{'text-red-600 peer-focus:text-red-600': error}"
-                            class=" peer-focus:font-medium capitalize absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                            <span *ngIf="!error">Your price</span>
-                            <span *ngIf="error">Your can't bid more then {{project.bids[project.bids.length -1].price -
-                                1 | mathFloor}}</span>
-                        </label>
-                    </div>
-                    <div class="flex items-center justify-end gap-4">
-                        <button (click)="bidModal(0)"
-                            class="capitalize text-md px-8 py-[4px] cursor-pointer border-2 mt-4 hover:bg-blue-300">cancel</button>
-                        <button (click)="bid(project.projectId, i)" [ngClass]="{'disable': error}"
-                            class="capitalize text-md px-8 py-[4px] cursor-pointer bg-blue-700 text-white mt-4 hover:bg-blue-300">bid</button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
+<div *ngIf="actRoute !== 'myprojects'" class="w-full max-w-[90%] mx-auto">
+  <div
+    *ngFor="let project of projects; let i = index"
+    class="flex shadow-sm gap-4 mb-4 bg-white"
+  >
+    <div class="max-w-[20%]">
+      <img
+        class="w-full"
+        [src]="'assets/images/' + project.vehcle.img"
+        alt=""
+      />
     </div>
+    <div class="py-4 w-full">
+      <div class="flex gap-4">
+        <p
+          [ngClass]="{ 'bg-green-300': project.status == 'closed' }"
+          class="bg-yellow-100 px-4 py-2 w-[260px] block rounded-full mb-2 font-bold max-w-max tracking-wide"
+        >
+          {{ project.time }}, {{ project.date }}
+        </p>
+        <p
+          *ngIf="project.userBack"
+          class="text-pink-600 capitalize text-2xl font-medium"
+        >
+          🎉you saved ${{ project.userBack | mathFloor }}🎉
+        </p>
+      </div>
+      <h1 class="text-2xl capitalize font-medium text-gray-700">
+        {{ project.vehcle.title }}
+      </h1>
+      <p class="text-gray-500">From: {{ project.startLocation }}</p>
+      <p class="text-gray-500">To: {{ project.endLocation }}</p>
+      <p *ngIf="user.type != 2" class="text-gray-900 text-2xl mt-2">
+        Assigned To:
+        {{
+          project.driverId
+            ? project.driverName
+            : 'Looking
+                For Driver'
+        }}
+      </p>
+    </div>
+    <div class="py-4 w-full max-w-[15%] text-center h-full my-auto py-auto">
+      <h2 class="text-2xl">{{ getDistanceKm(project.distance) }}km</h2>
+      <h2 *ngIf="user.type != 2" class="text-3xl mt-4 font-black text-blue-500">
+        ${{ project.totalCost | mathFloor }}
+      </h2>
+      <h2 *ngIf="user.type == 2" class="text-3xl mt-4 font-black text-blue-500">
+        Lowest Bid ${{
+          project.bids[project.bids.length - 1].price | mathFloor
+        }}
+      </h2>
+      <button
+        *ngIf="user.type == 2"
+        (click)="bidModal(1, project.projectId)"
+        class="capitalize text-2xl px-8 py-[4px] cursor-pointer border-2 mt-4 hover:bg-blue-300"
+      >
+        bid
+      </button>
+    </div>
+
+    <div
+      *ngIf="modal"
+      class="absolute top-0 left-0 right-0 z-50 overflow-x-hidden overflow-y-auto h-screen bg-[#00000030] w-full flex justify-center pt-20"
+    >
+      <div class="w-full max-w-[50%]">
+        <div class="shadow-xl p-4 bg-white">
+          <h3 class="text-xl font-semibold text-gray-900">
+            Add your offer price
+          </h3>
+          <div class="relative mt-4 w-full mb-6 group">
+            <input
+              type="number"
+              [(ngModel)]="offerPrice"
+              (input)="checkOffer(project.bids[project.bids.length - 1].price)"
+              [ngClass]="{
+                'text-red-600 border-red-600 focus:border-red-600': error
+              }"
+              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              required
+            />
+            <label
+              for="exp"
+              [ngClass]="{ 'text-red-600 peer-focus:text-red-600': error }"
+              class="peer-focus:font-medium capitalize absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              <span *ngIf="!error">Your price</span>
+              <span *ngIf="error"
+                >Your can't bid more then
+                {{
+                  project.bids[project.bids.length - 1].price - 1 | mathFloor
+                }}</span
+              >
+            </label>
+          </div>
+          <div class="flex items-center justify-end gap-4">
+            <button
+              (click)="bidModal(0, this.selectedProjectId)"
+              class="capitalize text-md px-8 py-[4px] cursor-pointer border-2 mt-4 hover:bg-blue-300"
+            >
+              cancel
+            </button>
+            <button
+              (click)="bid(i)"
+              [ngClass]="{ disable: error }"
+              class="capitalize text-md px-8 py-[4px] cursor-pointer bg-blue-700 text-white mt-4 hover:bg-blue-300"
+            >
+              bid
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-
-<div *ngIf="actRoute == 'myprojects'" class="w-full max-w-[96%] driver-projects  mx-auto">
-    <div>
-        <div *ngFor="let project of projects; let i = index" class=" shadow-sm mb-4">
-            <div (click)="setSendProject(i)" [ngClass]="{'bg-blue-100': selectedIndex == i}" class="p-4 w-full bg-white cursor-pointer">
-                <div class="w-full mb-4 flex items-center gap-6 ">
-                    <p class="bg-yellow-200 px-4 py-2 w-[260px] block rounded-full font-bold max-w-max">
-                        {{project.time}}, {{ project.date}}</p>
-                    <h2 class="text-2xl">{{getDistanceKm(project.distance)}}km</h2>
-                    <h2 class="text-3xl font-black text-blue-500">${{project.driverCost | mathFloor}}</h2>
-                </div>
-                <p class=" text-gray-700 text-xl font-medium">From -> {{project.startLocation}}</p>
-                <p class=" text-gray-700 text-xl font-medium">To -> {{project.endLocation}}</p>
-            </div>
+<div
+  *ngIf="actRoute == 'myprojects'"
+  class="w-full max-w-[96%] driver-projects mx-auto"
+>
+  <div>
+    <div *ngFor="let project of projects; let i = index" class="shadow-sm mb-4">
+      <div
+        (click)="setSendProject(i)"
+        [ngClass]="{ 'bg-blue-100': selectedIndex == i }"
+        class="p-4 w-full bg-white cursor-pointer"
+      >
+        <div class="w-full mb-4 flex items-center gap-6">
+          <p
+            class="bg-yellow-200 px-4 py-2 w-[260px] block rounded-full font-bold max-w-max"
+          >
+            {{ project.time }}, {{ project.date }}
+          </p>
+          <h2 class="text-2xl">{{ getDistanceKm(project.distance) }}km</h2>
+          <h2 class="text-3xl font-black text-blue-500">
+            ${{ project.driverCost | mathFloor }}
+          </h2>
         </div>
+        <p class="text-gray-700 text-xl font-medium">
+          From -> {{ project.startLocation }}
+        </p>
+        <p class="text-gray-700 text-xl font-medium">
+          To -> {{ project.endLocation }}
+        </p>
+      </div>
     </div>
-    <div>
-        <app-project-details [project]="sendProject"></app-project-details>
-    </div>
+  </div>
+  <div>
+    <app-project-details [project]="sendProject"></app-project-details>
+  </div>
 </div>

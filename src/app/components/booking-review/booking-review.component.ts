@@ -8,6 +8,7 @@ import { CargoItem } from 'src/app/interfaces/truck';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { SessionService } from 'src/app/services/session.service';
+import { WalletService } from 'src/app/services/wallet.service';
 import {
   getToastErrorMessage,
   getToastSuccessMessage,
@@ -25,25 +26,40 @@ export class BookingReviewComponent {
   helperCost = 0;
   extraCost = 0;
   totalCost = 0;
+  balance: any;
+  walletId!: string;
   constructor(
     private session: SessionService,
     private location: Location,
     private project: ProjectService,
     private auth: AuthService,
     private router: Router,
-    private toast: HotToastService
-  ) {}
+    private toast: HotToastService,
+    private walletService: WalletService
+  ) {
+    this.walletService.currentBalance.subscribe(
+      (balance) => (this.balance = balance || 0)
+    );
+    this.walletService.currentWalletId.subscribe(
+      (walletId) => (this.walletId = walletId)
+    );
+    console.log('WalletId:', this.walletId);
+  }
   ngOnInit(): void {
     this.bookingsData = this.session.getItem();
-    this.truckCost = this.bookingsData.vehcle.cost * 1;
-    this.helperCost = this.bookingsData.vehcle.helper
+    this.truckCost = this.bookingsData?.vehcle?.cost
+      ? this.bookingsData.vehcle.cost * 1
+      : 0;
+    this.helperCost = this.bookingsData?.vehcle?.helper
       ? this.bookingsData.vehcle.helper * 1
       : 0;
-    this.extraCost = this.getExtraCost(
-      this.bookingsData.cargoItems,
-      this.bookingsData.vehcle.cost
-    );
-    this.totalCost = this.truckCost + this.helperCost + this.extraCost;
+    this.extraCost =
+      this.getExtraCost(
+        this.bookingsData?.cargoItems,
+        this.bookingsData?.vehcle?.cost
+      ) || 0;
+    this.totalCost =
+      this.truckCost + this.helperCost + this.extraCost - this.balance;
   }
 
   getExtraCost(items: CargoItem[], cost: number): number {
@@ -64,6 +80,7 @@ export class BookingReviewComponent {
   }
 
   async booked() {
+    console.log('booked method called');
     if (!this.isAgreed) {
       this.toast.error(
         `Please agree to the terms and conditions`,
@@ -73,6 +90,7 @@ export class BookingReviewComponent {
     }
 
     const user = await this.auth.profile();
+    console.log('User:', user);
     if (user.id) {
       try {
         const data = await this.project.booked({
@@ -83,10 +101,14 @@ export class BookingReviewComponent {
           truckCost: this.truckCost,
         });
 
+        console.log('Booked data:', data);
         if (data.url) {
           window.location.href = data.url;
           this.session.removeItem();
         }
+
+        await this.walletService.patchWallet(0);
+        console.log('Wallet updated');
 
         this.toast.success('Booking successful', getToastSuccessMessage());
       } catch (error: any) {
