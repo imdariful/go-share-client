@@ -7,70 +7,67 @@ import { Truck } from 'src/app/interfaces/truck';
 import { ProjectService } from 'src/app/services/project.service';
 import { SessionService } from 'src/app/services/session.service';
 
-
 @Component({
   selector: 'app-booking-cargo',
   templateUrl: './booking-cargo.component.html',
-  styleUrls: ['./booking-cargo.component.scss']
+  styleUrls: ['./booking-cargo.component.scss'],
 })
 export class BookingCargoComponent {
   @Output() goNext = new EventEmitter<boolean>();
 
-  cars: Truck[] = []
+  cars: Truck[] = [];
 
-  selectId = 1
+  selectId = 1;
   detailsId = 0;
-  helper= false;
+  helper = false;
   distance = 0;
   totalWeight = 0;
- 
 
   constructor(
     private location: Location,
     private session: SessionService,
-    private project : ProjectService
+    private project: ProjectService
   ) {}
-  
-  select(id:number){
+
+  select(id: number) {
     this.selectId = id;
   }
 
-  addHelper(flag:boolean){
-    this.helper = flag? true: false;
+  addHelper(flag: boolean) {
+    this.helper = flag ? true : false;
   }
-
 
   goBack() {
     this.location.back();
   }
 
-  
   setVehicle() {
-    const vehcle = this.cars.find(car=> car.id === this.selectId)
-    this.session.setItem({vehcle: {helper: this.helper, totalWeight: this.totalWeight,  ...vehcle}})
-    this.goNext.emit(true)
+    const vehcle = this.cars.find((car) => car.id === this.selectId);
+    this.session.setItem({
+      vehcle: { helper: this.helper, totalWeight: this.totalWeight, ...vehcle },
+    });
+    this.goNext.emit(true);
   }
 
-  ngOnInit(){
+  ngOnInit() {
     const data = this.session.getItem();
     if (data && data.vehcle) {
       this.selectId = data.vehcle.id;
       this.helper = data.vehcle.helper;
     }
-    if(data.distance && data.cargoItems){
-      this.cars = this.project.getPrice(data.distance)
-      this.totalWeight = this.project.getTotalWeight(data.cargoItems)
-      console.log(this.totalWeight);
+    if (data.distance && data.cargoItems) {
+      this.cars = this.project.getPrice(data.distance);
+      this.totalWeight = this.project.getTotalWeight(data.cargoItems);
     }
   }
 
-
   getWeightDisplay(car: Truck): string {
-   return (car.weight/1000) >= 1? (car.weight/1000).toFixed(1) + 'ton': Math.floor(car.weight) + 'kg'
+    return car.weight / 1000 >= 1
+      ? (car.weight / 1000).toFixed(1) + 'ton'
+      : Math.floor(car.weight) + 'kg';
   }
 
   showDetails(id: number) {
-    this.detailsId = id
+    this.detailsId = id;
   }
-  
 }

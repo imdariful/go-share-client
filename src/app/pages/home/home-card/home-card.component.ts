@@ -3,13 +3,13 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'app-home-card',
   templateUrl: './home-card.component.html',
-  styleUrls: ['./home-card.component.scss']
+  styleUrls: ['./home-card.component.scss'],
 })
 export class HomeCardComponent {
- @Input()
+  @Input()
   img!: string;
- @Input()
+  @Input()
   title!: string;
- @Input()
+  @Input()
   pera!: string;
 }

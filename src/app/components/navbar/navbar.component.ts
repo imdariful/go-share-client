@@ -5,28 +5,26 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent implements OnInit{
-
+export class NavbarComponent implements OnInit {
   user: any;
 
-  constructor(private auth: AuthService){}
+  constructor(private auth: AuthService) {}
 
-  async getuser(){
+  async getuser() {
     this.user = await this.auth.profile();
   }
-  ngOnInit(){
-    initFlowbite()
+  ngOnInit() {
+    initFlowbite();
     this.getuser();
   }
 
-  ngOnChanges(change: SimpleChanges){
-    initFlowbite()
+  ngOnChanges(change: SimpleChanges) {
+    initFlowbite();
   }
 
-  signOut(){
+  signOut() {
     this.auth.signOut();
   }
-
 }

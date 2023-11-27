@@ -1,14 +1,42 @@
-<div class="flex justify-center items-center">
-    <h1 *ngIf="!user">loading.......</h1>
-    <div *ngIf="user"
-        class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-        <h5
-            class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{user
-            ? user.name : 'User not available'}}</h5>
-        <p class="font-normal text-gray-700 dark:text-gray-400">{{user ?
-            user.email : 'User not available'}}</p>
-        <button *ngIf="user" type="button"
-            (click)="logout()"
-            class="text-white mt-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Logout</button>
-    </div>
+<div class="p-6 bg-white w-full h-full">
+  <div class="flex items-center justify-center mb-4">
+    <img
+      [src]="avatarUrl"
+      alt="Profile Picture"
+      class="w-32 h-32 rounded-full"
+    />
+  </div>
+
+  <h5
+    class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+  >
+    {{ user ? user.name : "User not available" }}
+  </h5>
+  <p class="font-normal text-gray-700 dark:text-gray-400">
+    {{ user ? user.email : "User not available" }}
+  </p>
+
+  <div *ngIf="user?.type == 1" class="flex justify-between mt-4">
+      <div class="flex flex-col items-center">
+        <h6 class="text-gray-700 dark:text-gray-400">Balance</h6>
+        <p class="text-lg font-bold text-gray-900 dark:text-white">৳{{ wallet?.balance }}</p>
+      </div>
+      <div class="flex flex-col items-center">
+        <h6 class="text-gray-700 dark:text-gray-400">Total Services Taken</h6>
+        <p class="text-lg font-bold text-gray-900 dark:text-white">10</p>
+      </div>
+      <div class="flex flex-col items-center">
+        <h6 class="text-gray-700 dark:text-gray-400">Used Credit</h6>
+        <p class="text-lg font-bold text-gray-900 dark:text-white">৳100</p>
+      </div>
+  </div>
+
+  <button
+    *ngIf="user"
+    type="button"
+    (click)="logout()"
+    class="mt-6 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+  >
+    Logout
+  </button>
 </div>

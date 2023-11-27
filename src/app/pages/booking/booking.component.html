@@ -1,78 +1,135 @@
-<div class="h-full min-h-[100vh] flex flex-col ">
+<div class="h-full min-h-[100vh] flex flex-col">
   <!-- navbar -->
 
   <div class="flex justify-between items-center px-12 bg-blue-700 w-full">
-    <div routerLink="/" class="cursor-pointer   py-4">
-      <img class="" src="assets/images/goshare_logo_white.svg fill.png" alt>
+    <div routerLink="/" class="cursor-pointer py-4">
+      <img class="" src="assets/images/goshare_logo_white.svg fill.png" alt />
     </div>
     <div>
       <ul>
         <li *ngIf="!user?.id">
-
-          <a routerLink="/auth/signin" href="#"
-            class="block uppercase text-white  py-2 pl-3 pr-4 hover:text-gray-300 hover:underline">Sign
-            In</a>
+          <a
+            routerLink="/auth/signin"
+            href="#"
+            class="block uppercase text-white py-2 pl-3 pr-4 hover:text-gray-300 hover:underline"
+            >Sign In</a
+          >
         </li>
         <li *ngIf="user?.id">
-          <a routerLink="/dashboard/projects"
-            class="block uppercase text-white  py-2 pl-3 pr-4 hover:text-gray-300 hover:underline">Dashboard</a>
+          <a
+            routerLink="/dashboard/projects"
+            class="block uppercase text-white py-2 pl-3 pr-4 hover:text-gray-300 hover:underline"
+            >Dashboard</a
+          >
         </li>
-
       </ul>
     </div>
   </div>
 
   <div class="booking__main max-w-[80vw] mx-auto mt-10">
-
-    <ol class="flex items-center w-full	mx-auto font-medium text-center text-gray-600 sm:text-base">
-      <li [routerLink]="'/booking/1'" [ngClass]="{ 'text-green-600': id >= 1, 'disabled': id < 1 }"
-        class="text-3xl flex md:w-full cursor-pointer items-center after:w-[220px] after:h-0.5 after:bg-gray-500  sm:after:inline-block after:mx-auto">
-        <app-skipper-icon [id]="id" [index]="1" [title]="'Where'"></app-skipper-icon>
+    <ol
+      class="flex items-center w-full mx-auto font-medium text-center text-gray-600 sm:text-base"
+    >
+      <li
+        [routerLink]="'/booking/1'"
+        [ngClass]="{ 'text-green-600': id >= 1, 'disabled': id < 1 }"
+        class="text-3xl flex md:w-full cursor-pointer items-center after:w-[220px] after:h-0.5 after:bg-gray-500 sm:after:inline-block after:mx-auto"
+      >
+        <app-skipper-icon
+          [id]="id"
+          [index]="1"
+          [title]="'Where'"
+        ></app-skipper-icon>
       </li>
-      <li [routerLink]="'/booking/2'" [ngClass]="{ 'text-green-600': id >= 2, 'disabled': id < 2 }"
-        class="text-3xl flex md:w-full cursor-pointer items-center after:w-[220px] after:h-0.5 after:bg-gray-500 after:max-w-sm sm:after:inline-block after:mx-auto">
-        <app-skipper-icon [id]="id" [index]="2" [title]="'What'"></app-skipper-icon>
+      <li
+        [routerLink]="'/booking/2'"
+        [ngClass]="{ 'text-green-600': id >= 2, 'disabled': id < 2 }"
+        class="text-3xl flex md:w-full cursor-pointer items-center after:w-[220px] after:h-0.5 after:bg-gray-500 after:max-w-sm sm:after:inline-block after:mx-auto"
+      >
+        <app-skipper-icon
+          [id]="id"
+          [index]="2"
+          [title]="'What'"
+        ></app-skipper-icon>
       </li>
-      <li [routerLink]="'/booking/3'" [ngClass]="{ 'text-green-600': id >= 3, 'disabled': id < 3 }"
-        class="text-3xl flex md:w-full cursor-pointer items-center after:w-[220px] after:h-0.5 after:bg-gray-500 after:max-w-sm sm:after:inline-block after:mx-auto">
-        <app-skipper-icon [id]="id" [index]="3" [title]="'Vehicle'"></app-skipper-icon>
+      <li
+        [routerLink]="'/booking/3'"
+        [ngClass]="{ 'text-green-600': id >= 3, 'disabled': id < 3 }"
+        class="text-3xl flex md:w-full cursor-pointer items-center after:w-[220px] after:h-0.5 after:bg-gray-500 after:max-w-sm sm:after:inline-block after:mx-auto"
+      >
+        <app-skipper-icon
+          [id]="id"
+          [index]="3"
+          [title]="'Vehicle'"
+        ></app-skipper-icon>
       </li>
-      <li [routerLink]="'/booking/4'" [ngClass]="{ 'text-green-600': id >= 4, 'disabled': id < 4 }"
-        class="text-3xl flex cursor-pointer items-center">
-        <app-skipper-icon [id]="id" [index]="4" [title]="'Review'"></app-skipper-icon>
+      <li
+        [routerLink]="'/booking/4'"
+        [ngClass]="{ 'text-green-600': id >= 4, 'disabled': id < 4 }"
+        class="text-3xl flex cursor-pointer items-center"
+      >
+        <app-skipper-icon
+          [id]="id"
+          [index]="4"
+          [title]="'Review'"
+        ></app-skipper-icon>
       </li>
     </ol>
 
     <!-- <div [ngClass]="{ 'shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]': id != 4 }"
       class="block mt-10 w-full max-w-screen-2xl mx-auto rounded bg-white text-left"> -->
-      <div class="my-10">
-        <app-booking-location (goNext)="goNext($event)" (setLocation)="setLocation($event)"
-          *ngIf="id === 1"></app-booking-location>
-        <app-booking-items (goNext)="goNext($event)" *ngIf="id === 2"></app-booking-items>
-        <app-booking-cargo (goNext)="goNext($event)" *ngIf="id === 3"></app-booking-cargo>
-        <app-booking-review *ngIf="id === 4"></app-booking-review>
-      </div>
+    <div class="my-10">
+      <app-booking-location
+        (goNext)="goNext($event)"
+        (setLocation)="setLocation($event)"
+        *ngIf="id === 1"
+      ></app-booking-location>
+      <app-booking-items
+        (goNext)="goNext($event)"
+        *ngIf="id === 2"
+      ></app-booking-items>
+      <app-booking-cargo
+        (goNext)="goNext($event)"
+        *ngIf="id === 3"
+      ></app-booking-cargo>
+      <app-booking-review *ngIf="id === 4"></app-booking-review>
+    </div>
     <!-- </div> -->
-
   </div>
-
 
   <!-- footer -->
-  <div class="p-4 px-12 bg-blue-700 flex items-center justify-between  mt-auto">
-    <div class="flex items-center ">
-      <h2 class="text-md py-[2px] cursor-pointer hover:underline capitalize text-gray-300">terms
-        of service</h2>
-      <h2 class="text-md ml-10 py-[2px] cursor-pointer hover:underline capitalize text-gray-300">privacy
-        policy</h2>
-      <h2 class="text-md ml-10 py-[2px] cursor-pointer hover:underline capitalize text-gray-300">reviews</h2>
-      <h2 class="text-md ml-10 py-[2px] cursor-pointer hover:underline capitalize text-gray-300">help</h2>
-      <h2 class="text-md ml-10 py-[2px] cursor-pointer hover:underline capitalize text-gray-300">contact
-        us</h2>
+  <div class="p-4 px-12 bg-blue-700 flex items-center justify-between mt-auto">
+    <div class="flex items-center">
+      <h2
+        class="text-md py-[2px] cursor-pointer hover:underline capitalize text-gray-300"
+      >
+        terms of service
+      </h2>
+      <h2
+        class="text-md ml-10 py-[2px] cursor-pointer hover:underline capitalize text-gray-300"
+      >
+        privacy policy
+      </h2>
+      <h2
+        class="text-md ml-10 py-[2px] cursor-pointer hover:underline capitalize text-gray-300"
+      >
+        reviews
+      </h2>
+      <h2
+        class="text-md ml-10 py-[2px] cursor-pointer hover:underline capitalize text-gray-300"
+      >
+        help
+      </h2>
+      <h2
+        class="text-md ml-10 py-[2px] cursor-pointer hover:underline capitalize text-gray-300"
+      >
+        contact us
+      </h2>
     </div>
     <div>
-      <h2 class="text-md py-[2px] capitalize text-gray-300">@2023
-        GoShare Inc. All Right reserve</h2>
+      <h2 class="text-md py-[2px] capitalize text-gray-300">
+        @2023 GoShare Inc. All Right reserve
+      </h2>
     </div>
   </div>
-
 </div>
